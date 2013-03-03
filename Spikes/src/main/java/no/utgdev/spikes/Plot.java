@@ -6,7 +6,7 @@ package no.utgdev.spikes;
 
 import java.io.File;
 import no.utgdev.ga.core.GALoop;
-import no.utgdev.spikes.plotting.SpikeTrainPlotter;
+import no.utgdev.spikes.statistics.SpikeTrainPlotter;
 import no.utgdev.spikes.spiketrain.RawSpikeTrain;
 import no.utgdev.spikes.spiketrain.SpikeTrainFromFile;
 import no.utgdev.spikes.spiketrain.SpikeTrainFromParameters;

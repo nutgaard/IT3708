@@ -2,14 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.utgdev.spikes.plotting;
+package no.utgdev.spikes.statistics;
 
 import no.utgdev.spikes.spiketrain.RawSpikeTrain;
 import java.awt.Dimension;
-import java.util.LinkedList;
 import javax.swing.JFrame;
-import no.utgdev.ga.core.population.PopulationParser;
-import org.javatuples.Pair;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;

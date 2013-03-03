@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.utgdev.spikes;
+package no.utgdev.spikes.statistics;
 
 import no.utgdev.ga.core.fitness.FitnessHandler;
 import no.utgdev.ga.core.fitness.FitnessMap;
 import no.utgdev.ga.core.population.Population;
 import no.utgdev.ga.core.population.PopulationParser;
+import no.utgdev.spikes.impl.SpikePhenoType;
 
 /**
  *

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.utgdev.spikes;
+package no.utgdev.spikes.statistics;
 
 /**
  *
@@ -12,6 +12,7 @@ package no.utgdev.spikes;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+import no.utgdev.spikes.statistics.Entropy;
 import java.awt.Dimension;
 import java.util.LinkedList;
 import java.util.List;

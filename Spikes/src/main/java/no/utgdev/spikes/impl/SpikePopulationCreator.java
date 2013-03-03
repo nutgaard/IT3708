@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.utgdev.spikes;
+package no.utgdev.spikes.impl;
 
 import no.utgdev.ga.core.GALoop;
 import no.utgdev.ga.core.population.Population;

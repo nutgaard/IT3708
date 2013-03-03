@@ -46,7 +46,9 @@ public class GALoop {
     public StatisticsHandler getStatisticsHandler() {
         return this.statisticHandler;
     }
-
+    /**
+     * This is the main GA loop
+     */
     public void run() {
         try {
             TypedProperties properties = new TypedProperties(props);

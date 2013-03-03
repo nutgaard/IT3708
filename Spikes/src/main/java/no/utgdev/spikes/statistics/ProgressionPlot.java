@@ -2,14 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.utgdev.spikes;
+package no.utgdev.spikes.statistics;
 
 import java.io.File;
 import no.utgdev.ga.core.GALoop;
 import no.utgdev.ga.core.fitness.FitnessHandler;
 import no.utgdev.ga.core.population.Population;
 import no.utgdev.ga.core.statistics.StatisticsHandler;
-import no.utgdev.spikes.plotting.SpikeTrainPlotter;
+import no.utgdev.spikes.impl.SpikePhenoType;
+import no.utgdev.spikes.impl.SpikePhenoType;
+import no.utgdev.spikes.statistics.SpikeTrainPlotter;
 import no.utgdev.spikes.spiketrain.RawSpikeTrain;
 import no.utgdev.spikes.spiketrain.SpikeTrainFromFile;
 

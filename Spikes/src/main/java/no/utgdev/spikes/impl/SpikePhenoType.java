@@ -2,13 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.utgdev.spikes;
+package no.utgdev.spikes.impl;
 
 import java.util.Arrays;
 import java.util.Properties;
 import no.utgdev.ga.core.GALoop;
 import no.utgdev.ga.core.population.PhenoType;
 import no.utgdev.ga.utils.TypedProperties;
+import no.utgdev.spikes.Utils;
+import no.utgdev.spikes.Utils;
 import no.utgdev.spikes.spiketrain.SpikeTrainFromParameters;
 import no.utgdev.spikes.spiketrain.TimingSpikeTrain;
 import org.javatuples.Pair;

@@ -1,5 +1,10 @@
 package no.utgdev.spikes;
 
+import no.utgdev.spikes.impl.SpikePopulationCreator;
+import no.utgdev.spikes.impl.SpikePhenoType;
+import no.utgdev.spikes.impl.SpikeGenoType;
+import no.utgdev.spikes.impl.SpikeFitnessHandler;
+import no.utgdev.spikes.statistics.Plotting;
 import java.util.Properties;
 import no.utgdev.ga.core.GALoop;
 import no.utgdev.ga.core.selection.mechanism.AllMechanism;

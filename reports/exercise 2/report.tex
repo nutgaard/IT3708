@@ -17,15 +17,15 @@
 \section{Description}
 	\subsection{Architecture}
 		\subsubsection{GA-core}\label{sec:core}
-			Figure~\ref{fig:gastruct} below show the architecture of the core components for our evolutionary algorithm. The whole architecture is based around modularity and reusability, which can be seen by the classes named with italic font\footnote{SelectionMechanism, SelectionProtocol, RangeBasedSelectionMechansim, StatisticsHandler, FitnessHandler, GenoType, PhenoType, Populationgenerator, PopulationParser}. This is a plain framework for solving problems through an evolitionary process and contains just the basics implementations for each interface, e.g. binary genotype, phenotype and populationgenerator, some selection mechanisms and protocols, and some population parsers in order to extract data from the process.
+			Figure~\ref{fig:gastruct} below show the architecture of the core components for our evolutionary algorithm. The whole architecture is based around modularity and reusability, which can be seen by the abstract classes/interfaces named with italic font\footnote{\label{foot:abstractinterface}SelectionMechanism, SelectionProtocol, RangeBasedSelectionMechansim, StatisticsHandler, FitnessHandler, GenoType, PhenoType, Populationgenerator, PopulationParser}. This is a plain framework for solving problems through an evolitionary process and contains just the basics implementations for each interface, e.g. binary genotype, phenotype and populationgenerator, some selection mechanisms and protocols, and some population parsers in order to extract data from the process.
 			
-			
+			The core architecture allows it to be used regardless of the problem specifics demands since these, as you will see in section~\ref{sec:specific}, are encoded into problem specific implementations of the abstract classes/interfaces\footnotemark[\ref{foot:abstractinterface}]
 			\begin{figure}[H]
 				\centerline{\includegraphics[width=.7\columnwidth]{./../images/GAStruct.png}}
 				\caption{GA architecture}%
 				\label{fig:gastruct}%
 			\end{figure}
-		\subsubsection{Problem specific}
+		\subsubsection{Problem specific}\label{sec:specific}
 		
 	\subsection{Genotype}\label{sec:geno}
 	\subsection{Fitness function}\label{sec:fitness}

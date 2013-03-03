@@ -25,14 +25,14 @@ public class App {
         properties.setProperty("core.strategy.adult.mechanism", AllMechanism.class.getName());
         properties.setProperty("core.strategy.parent.protocol", AllProtocol.class.getName());
         properties.setProperty("core.strategy.parent.mechanism", TournamentSelectionMechanism.class.getName());
-//        properties.setProperty("core.statistics.handler", Plotting.class.getName());
-        properties.setProperty("core.generation.size", "20");
+        properties.setProperty("core.statistics.handler", Plotting.class.getName());
+        properties.setProperty("core.generation.size", "1000");
         properties.setProperty("core.population.size", "20");
         properties.setProperty("tournament.size", "20");
         properties.setProperty("tournament.eps", "0.05");
         properties.setProperty("core.indicidual.crossover_rate", "0.9");
         properties.setProperty("core.indicidual.mutation_rate", "0.1");
-        properties.setProperty("spike.param.accuracy", "32");
+        properties.setProperty("spike.param.accuracy", "30");
         properties.setProperty("spike.target.uri", "./data/izzy-train4.dat");
         properties.setProperty("spike.fitness.metric", SpikeTime.class.getName());
         properties.setProperty("spike.length", "1000");
@@ -43,19 +43,11 @@ public class App {
         
         
         AskingProperties ask = new AskingProperties(properties);
-//        properties = ask.ask();
+        properties = ask.ask();
         GALoop ga = new GALoop(properties);
-        System.out.println("Setting_: "+ga+" "+properties);
+        
         SpikeGenoType.setParams(ga, properties);
-        SpikePhenoType.setParams(ga, properties);
-        
-        
-        SpikePopulationCreator spc = new SpikePopulationCreator(ga);
-        Population<SpikePhenoType> pop = spc.create(10);
-        for (SpikePhenoType spt : pop) {
-            System.out.println(spt);
-        }
-        
+        SpikePhenoType.setParams(ga, properties);        
         
         ga.run();
     }

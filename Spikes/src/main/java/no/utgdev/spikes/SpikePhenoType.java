@@ -12,6 +12,7 @@ import no.utgdev.ga.utils.TypedProperties;
 import no.utgdev.spikes.spiketrain.SpikeTrainFromParameters;
 import no.utgdev.spikes.spiketrain.TimingSpikeTrain;
 import org.javatuples.Pair;
+import org.javatuples.Quintet;
 import org.javatuples.Sextet;
 
 /**
@@ -21,6 +22,7 @@ import org.javatuples.Sextet;
 public class SpikePhenoType extends PhenoType<SpikeGenoType> {
 
     private double[] param;
+    private Quintet<Double, Double, Double, Double, Double> params;
     private TimingSpikeTrain spikeTrain;
     private static TypedProperties props;
     private static Pair<Double, Double>[] range;
@@ -50,6 +52,12 @@ public class SpikePhenoType extends PhenoType<SpikeGenoType> {
     }
     public double[] getParams() {
         return this.param;
+    }
+    public Quintet getConcParams() {
+        if (this.params == null) {
+            this.params = new Quintet<Double, Double, Double, Double, Double>(param[0], param[1], param[2], param[3], param[4]);
+        }
+        return this.params;
     }
     public TimingSpikeTrain getSpikeTrain() {
         if (this.spikeTrain == null) {

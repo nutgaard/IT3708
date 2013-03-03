@@ -24,10 +24,13 @@
 				\caption{GA architecture}%
 				\label{fig:gastruct}%
 			\end{figure}
-		\subsection{Problem specific}\label{sec:specific}
-		
-	\subsubsection{Genotype}\label{sec:geno}
-	\subsubsection{Fitness function}\label{sec:fitness}
+
+		\subsubsection{Problem specific}\label{sec:specific}
+				In this exercise, we implement everything problem specific in a separate project. Our SpikeGenoType, SpikePhenoType, SpikeFitnessHandler and SpikePopulationCreator extends GenoType, PhenoType, FitnessHandler and PopulationGenerator from the core project respectivly.
+		Our Spike project also implements an abstraction for the SpikeTrain, including functionality for different spike train distance metrics (waveform, spike time, spike interval), reading from file, and writing to file.
+	\subsection{Genotype}\label{sec:geno}
+	\subsection{Fitness function}\label{sec:fitness}
+
 \section{Test cases}\label{sec:test}
 \section{Genotype-Phenotype mapping}\label{sec:mapping}
 \section{Practical implications}\label{sec:implications}

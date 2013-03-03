@@ -1,11 +1,15 @@
 .idea/
 target/
 *.aux
+*.gz
 *.bbl
 *.blg
 *.log
 *.pdf
 *.toc
+*.dvi
+.settings/
+images/
 bin/
 .project
 .classpath

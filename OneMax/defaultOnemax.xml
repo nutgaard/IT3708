@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="binary.length">8</entry>
+<entry key="core.indicidual.mutation_rate">0.1</entry>
+<entry key="core.generation.size">100</entry>
+<entry key="core.fitness.handler">no.utgdev.ga.core.fitness.BinaryFitnessHandler</entry>
+<entry key="core.population.size">30</entry>
+<entry key="binary.target">11111111</entry>
+<entry key="core.strategy.adult.mechanism">no.utgdev.ga.core.selection.mechanism.AllMechanism</entry>
+<entry key="tournament.size">20</entry>
+<entry key="core.strategy.parent.mechanism">no.utgdev.ga.core.selection.mechanism.TournamentSelectionMechanism</entry>
+<entry key="tournament.eps">0.05</entry>
+<entry key="core.indicidual.crossover_rate">0.9</entry>
+<entry key="core.population.generator">no.utgdev.ga.core.population.binary.BinaryPopulationCreator</entry>
+<entry key="core.strategy.parent.protocol">no.utgdev.ga.core.selection.protocol.AllProtocol</entry>
+<entry key="core.strategy.adult.protocol">no.utgdev.ga.core.selection.protocol.GenerationalMixing</entry>
+<entry key="core.statistics.handler">no.utgdev.onemax.Plotting</entry>
+</properties>

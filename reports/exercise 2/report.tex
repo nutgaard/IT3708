@@ -2,6 +2,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage[margin=1.0in]{geometry}
+\usepackage{amsmath}
 \restylefloat{figure}
 	\title{IT3708 - Exercise 2}
 \author{
@@ -20,7 +21,7 @@
 			
 			The core architecture allows it to be used regardless of the problem specifics demands since these, as you will see in section~\ref{sec:specific}, are encoded into problem specific implementations of the abstract classes/interfaces\footnotemark[\ref{foot:abstractinterface}]
 			\begin{figure}[H]
-				\centerline{\includegraphics[width=.7\columnwidth]{./../images/GAStruct.png}}
+				\centerline{\includegraphics[width=.6\columnwidth]{./../images/GAStruct.png}}
 				\caption{GA architecture}%
 				\label{fig:gastruct}%
 			\end{figure}
@@ -29,8 +30,29 @@
 				In this exercise, we implement everything problem specific in a separate project. Our SpikeGenoType, SpikePhenoType, SpikeFitnessHandler and SpikePopulationCreator extends GenoType, PhenoType, FitnessHandler and PopulationGenerator from the core project respectivly.
 		Our Spike project also implements an abstraction for the SpikeTrain, including functionality for different spike train distance metrics (waveform, spike time, spike interval), reading from file, and writing to file.
 	\subsection{Genotype}\label{sec:geno}
+		For the genotype representation we choose a discrete representation with cardinality $k~=~2$ and accuracy $acc$, which is decoded by the phenotype into the correct range based on which parameter the bit sequence is describing. The accuracy is an integer between 1 and 31, whihc determinds how many bits should be used to encode each parameter. The set of parameters for Izhikevich model each has it own range, described by $range_{param} \in [min_{param}, max_{param}]$. 
+		\begin{align}
+			range_a &\in [0.001, 0.2]\nonumber\\
+			range_b &\in [0.01, 0.3]\nonumber\\
+			range_c &\in [-80, -30]\nonumber\\
+			range_d &\in [0.1, 10]\nonumber\\
+			range_k &\in [0.01, 1.0]\nonumber
+		\end{align}
+		The conversion between the binary vector into real valued parameter is done by taking $acc$ bits and converting them to an integer $coef_{param}$. $subvector(bitvector, param)$ extracts the parameter relevant bits from the genotype bitvector.
+		\begin{align}
+			param &\in \{a, b, c, d, k\}\nonumber\\
+			acc &= 8\nonumber\\
+			bitvector &= 00001101\dots11100110\nonumber\\
+			bitvector_{param} &= subvector(bitvector, param)\nonumber\\
+			coef_{param} &= (bitvector_{param})_{10}\nonumber\\
+			step_{param} &= (max_{param}-min_{param})/2^{acc}\nonumber\\
+			param &= min_{param}+(coef_{param}*step_{param})\nonumber
+		\end{align}
 	\subsection{Fitness function}\label{sec:fitness}
-
+		Our fitness function is based on the different SDM's implemented during this project, where $F_j$ is the phenotype in question, and $E_j$ the error found by the SDM associated with $F_j$.
+		\begin{align}
+			Fitness(F_j) &= \frac{1}{1+E_j}\nonumber
+		\end{align}
 \section{Test cases}\label{sec:test}
 \section{Genotype-Phenotype mapping}\label{sec:mapping}
 \section{Practical implications}\label{sec:implications}

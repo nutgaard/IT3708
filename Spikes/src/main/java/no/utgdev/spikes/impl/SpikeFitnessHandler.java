@@ -60,6 +60,6 @@ public class SpikeFitnessHandler extends FitnessHandler<SpikeGenoType, SpikePhen
 
     public double getFitness(SpikePhenoType phenotype, Population<SpikePhenoType> population) {
         double m = metric.distanceMetric(target, phenotype.getSpikeTrain());
-        return 1/Math.max(m, Double.MIN_VALUE);
+        return 1/(1+m);
     }
 }

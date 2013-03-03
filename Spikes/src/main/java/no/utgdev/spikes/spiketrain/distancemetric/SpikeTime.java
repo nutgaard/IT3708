@@ -23,11 +23,14 @@ public class SpikeTime implements DistanceMetric {
             dist += Math.pow(Math.abs(t1[i] - t2[i]), p);
         }
         //Spike penalties
+        if (min == 0) {
+            min++;
+        }
         if (t1.length != t2.length) {
-            int diff = Math.abs(t1.length-t2.length);
-            double penalty = (diff * train1.getRaw().length) / (2 * (min + Double.MIN_VALUE));
+            int diff = Math.abs(t1.length - t2.length);
+            double penalty = (diff * train1.getRaw().length) / (2 * min);
             dist += penalty;
         }
-        return Math.pow(dist, 1 / p) / (min + Double.MIN_VALUE);
+        return Math.pow(dist, 1 / p) / min;
     }
 }

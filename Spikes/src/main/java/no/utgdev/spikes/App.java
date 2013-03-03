@@ -36,6 +36,7 @@ public class App {
         properties.setProperty("spike.target.uri", "./data/izzy-train4.dat");
         properties.setProperty("spike.fitness.metric", SpikeTime.class.getName());
         properties.setProperty("spike.length", "1000");
+        properties.setProperty("debug.generational_sysout", "100");
 //        Same for a, b, c, d, k
 //        properties.setProperty("spike.a.min", "0.001");
 //        properties.setProperty("spike.a.max", "0.2");

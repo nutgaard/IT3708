@@ -14,6 +14,7 @@ package no.utgdev.onemax;
  */
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import no.utgdev.ga.core.GALoop;
 import no.utgdev.ga.core.fitness.FitnessHandler;
 import no.utgdev.ga.core.population.Population;
 import no.utgdev.ga.core.population.PopulationParser;
@@ -33,7 +34,8 @@ import org.jfree.data.xy.XYSeriesCollection;
  *
  * @author Nicklas
  */
-public class Plotting extends JFrame implements StatisticsHandler {
+public class Plotting extends StatisticsHandler {
+    private JFrame frame;
     private ChartPanel panel;
     private XYSeriesCollection dataset;
     private JFreeChart chart;
@@ -41,9 +43,10 @@ public class Plotting extends JFrame implements StatisticsHandler {
     private PopulationParser[] parsers;
     private XYSeries[] series;
 
-    public Plotting() {
-        super("graph");
-        super.setPreferredSize(new Dimension(800, 800));
+    public Plotting(GALoop ga) {
+        super(ga);
+        frame = new JFrame("Plotting");
+        frame.setPreferredSize(new Dimension(800, 800));
         this.dataset = new XYSeriesCollection();
         this.chart = ChartFactory.createXYLineChart(
         "GA", 
@@ -62,15 +65,14 @@ public class Plotting extends JFrame implements StatisticsHandler {
             this.series[i] = new XYSeries(parsers[i].getClass().getSimpleName());
             dataset.addSeries(this.series[i]);
         }
-        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        super.add(panel);
-        super.pack();
-        super.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        frame.pack();
+        frame.setVisible(true);
         
     }
 
     public void generation(int genNo, Population population, FitnessHandler fitnessHandler) {
-        ;
         for (int i = 0; i < parsers.length; i++) {
             series[i].add(genNo, (Double)parsers[i].parse(population, fitnessHandler));
         }

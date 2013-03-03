@@ -28,7 +28,6 @@ public class SpikeTrainPlotter extends JFrame {
     private XYSeriesCollection dataset;
     private JFreeChart chart;
     private XYPlot plot;
-    private XYSeries[] series;
 
     public SpikeTrainPlotter(RawSpikeTrain... trains) {
         super("graph");
@@ -64,5 +63,14 @@ public class SpikeTrainPlotter extends JFrame {
             series.add(x++, d);
         }
         return series;
+    }
+
+    public synchronized void setSeries(RawSpikeTrain... raws) {
+        for (int i = 0; i < raws.length; i++) {
+            dataset.addSeries(createXYSeries(raws[i]));
+        }
+        while (dataset.getSeriesCount() > raws.length){
+            dataset.removeSeries(0);
+        }
     }
 }

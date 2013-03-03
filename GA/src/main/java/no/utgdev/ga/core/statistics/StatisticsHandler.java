@@ -4,6 +4,7 @@
  */
 package no.utgdev.ga.core.statistics;
 
+import no.utgdev.ga.core.GALoop;
 import no.utgdev.ga.core.fitness.FitnessHandler;
 import no.utgdev.ga.core.population.Population;
 
@@ -11,6 +12,12 @@ import no.utgdev.ga.core.population.Population;
  *
  * @author Nicklas
  */
-public interface StatisticsHandler {
-    public void generation(int genNo, Population population, FitnessHandler fitnessHandler);
+public abstract class StatisticsHandler {
+    protected GALoop ga;
+
+    public StatisticsHandler(GALoop ga) {
+        this.ga = ga;
+    }
+    
+    public abstract void generation(int genNo, Population population, FitnessHandler fitnessHandler);
 }

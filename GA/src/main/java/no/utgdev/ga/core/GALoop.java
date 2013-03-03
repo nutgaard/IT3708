@@ -63,7 +63,7 @@ public class GALoop {
             int generationalSysout = properties.getInt("debug.generational_sysout", 50);
             int generationCounter = 0;
             
-            this.statisticHandler = (StatisticsHandler) statisticHandlerCls.newInstance();
+            this.statisticHandler = createInstance(statisticHandlerCls);
             Population<PhenoType> childrenPopulation = createInstance(populationGenerator).create(populationCount);
             Population<PhenoType> adultPopulation = new Population(new PhenoType[]{}), matingPopulation = new Population(new PhenoType[]{});
             FitnessHandler fitnessHandler = createInstance(fitnessHandlerCls);

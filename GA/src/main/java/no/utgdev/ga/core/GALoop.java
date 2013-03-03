@@ -49,7 +49,7 @@ public class GALoop {
     /**
      * This is the main GA loop
      */
-    public void run() {
+    public FitnessMap<? extends PhenoType> run() {
         try {
             TypedProperties properties = new TypedProperties(props);
             Class<? extends PopulationGenerator> populationGenerator = findClass("core.population.generator", null);
@@ -101,14 +101,9 @@ public class GALoop {
                 childrenPopulation = new Population(children);
                 generationCounter++;
             }
-            FitnessMap<PhenoType> fm = fitnessHandler.generateFitnessMap(childrenPopulation);
-            List<PhenoType> best = fm.get(fm.keySet().iterator().next());
-            System.out.println("Number of Top: " + best.size()+" Fitness: "+fm.get(best.get(0)));
-            for (PhenoType pt : best) {
-                System.out.println(pt);
-            }
+            return fitnessHandler.generateFitnessMap(childrenPopulation);
         } catch (Exception ex) {
-            Logger.getLogger(GALoop.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
         }
 
     }

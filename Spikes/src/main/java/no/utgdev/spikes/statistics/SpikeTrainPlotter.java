@@ -6,12 +6,18 @@ package no.utgdev.spikes.statistics;
 
 import no.utgdev.spikes.spiketrain.RawSpikeTrain;
 import java.awt.Dimension;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.title.TextTitle;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -19,7 +25,7 @@ import org.jfree.data.xy.XYSeriesCollection;
  *
  * @author Nicklas
  */
-public class SpikeTrainPlotter extends JFrame {
+public class SpikeTrainPlotter {//extends JFrame {
 
     private ChartPanel panel;
     private XYSeriesCollection dataset;
@@ -27,8 +33,8 @@ public class SpikeTrainPlotter extends JFrame {
     private XYPlot plot;
 
     public SpikeTrainPlotter(RawSpikeTrain... trains) {
-        super("graph");
-        super.setPreferredSize(new Dimension(800, 800));
+//        super("graph");
+//        super.setPreferredSize(new Dimension(800, 800));
         this.dataset = new XYSeriesCollection();
         this.chart = ChartFactory.createXYLineChart(
                 "SpikeTrains",
@@ -47,10 +53,10 @@ public class SpikeTrainPlotter extends JFrame {
             dataset.addSeries(createXYSeries(trains[i]));
         }
 
-        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        super.add(panel);
-        super.pack();
-        super.setVisible(true);
+//        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        super.add(panel);
+//        super.pack();
+//        super.setVisible(true);
     }
 
     private XYSeries createXYSeries(RawSpikeTrain rawSpikeTrain) {
@@ -68,6 +74,14 @@ public class SpikeTrainPlotter extends JFrame {
         }
         while (dataset.getSeriesCount() > raws.length){
             dataset.removeSeries(0);
+        }
+    }
+    public void save(String filename, String subtitle) {
+        try {
+            chart.addSubtitle(new TextTitle(subtitle));
+            ChartUtilities.saveChartAsPNG(new File(filename), chart, 1920, 1080);
+        } catch (IOException ex) {
+            Logger.getLogger(SpikeTrainPlotter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

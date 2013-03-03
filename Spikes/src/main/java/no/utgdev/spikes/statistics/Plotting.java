@@ -12,10 +12,13 @@ package no.utgdev.spikes.statistics;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-import no.utgdev.spikes.statistics.Entropy;
 import java.awt.Dimension;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import no.utgdev.ga.core.GALoop;
 import no.utgdev.ga.core.fitness.FitnessHandler;
@@ -28,12 +31,14 @@ import no.utgdev.ga.core.statistics.StatisticsHandler;
 import org.javatuples.Pair;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.AxisLocation;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
+import org.jfree.chart.title.TextTitle;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -43,7 +48,7 @@ import org.jfree.data.xy.XYSeriesCollection;
  */
 public class Plotting extends StatisticsHandler {
     List<Pair<PopulationParser, XYSeries>> activeParsers;
-    private JFrame frame;
+//    private JFrame frame;
     private ChartPanel panel;
     private XYSeriesCollection dataset;
     private JFreeChart chart;
@@ -53,8 +58,8 @@ public class Plotting extends StatisticsHandler {
 
     public Plotting(GALoop ga) {
         super(ga);
-        frame = new JFrame("Plotting");
-        frame.setPreferredSize(new Dimension(800, 800));
+//        frame = new JFrame("Plotting");
+//        frame.setPreferredSize(new Dimension(800, 800));
         this.activeParsers = new LinkedList<Pair<PopulationParser, XYSeries>>();
         this.dataset = new XYSeriesCollection();
         this.chart = ChartFactory.createXYLineChart(
@@ -85,16 +90,24 @@ public class Plotting extends StatisticsHandler {
                 dataset.addSeries(this.series[i]);
             }
         }
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
-        frame.pack();
-        frame.setLocationByPlatform(true);
-        frame.setVisible(true);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.add(panel);
+//        frame.pack();
+//        frame.setLocationByPlatform(true);
+//        frame.setVisible(true);
     }
 
     public void generation(int genNo, Population population, FitnessHandler fitnessHandler) {
         for (int i = 0; i < parsers.length; i++) {
             series[i].add(genNo, (Double) parsers[i].parse(population, fitnessHandler));
+        }
+    }
+    public void save(String filename, String subtitle) {
+        try {
+            chart.addSubtitle(new TextTitle(subtitle));
+            ChartUtilities.saveChartAsPNG(new File(filename), chart, 1920, 1080);
+        } catch (IOException ex) {
+            Logger.getLogger(Plotting.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

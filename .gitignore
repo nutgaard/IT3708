@@ -6,7 +6,6 @@ target/
 *.log
 *.pdf
 *.toc
-images/
 bin/
 .project
 .classpath

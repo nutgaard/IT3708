@@ -16,8 +16,10 @@
 \pagebreak
 \section{Description}
 	\subsection{Architecture}
-		\subsubsection{GA-core}
-			Figure~\ref{fig:gastruct} below show the architecture of the core components for our evolutionary algorithm. The whole architecture is based around modularity and reusability, which can be seen by the classes named with italic font\footnote{SelectionMechanism, SelectionProtocol, RangeBasedSelectionMechansim, StatisticsHandler, FitnessHandler, GenoType, PhenoType, Populationgenerator, PopulationParser}. This is a plain framework for solving problems through an evolitionary process and contains just the basics implementations for each interface, e.g. the binary.
+		\subsubsection{GA-core}\label{sec:core}
+			Figure~\ref{fig:gastruct} below show the architecture of the core components for our evolutionary algorithm. The whole architecture is based around modularity and reusability, which can be seen by the classes named with italic font\footnote{SelectionMechanism, SelectionProtocol, RangeBasedSelectionMechansim, StatisticsHandler, FitnessHandler, GenoType, PhenoType, Populationgenerator, PopulationParser}. This is a plain framework for solving problems through an evolitionary process and contains just the basics implementations for each interface, e.g. binary genotype, phenotype and populationgenerator, some selection mechanisms and protocols, and some population parsers in order to extract data from the process.
+			
+			
 			\begin{figure}[H]
 				\centerline{\includegraphics[width=.7\columnwidth]{./../images/GAStruct.png}}
 				\caption{GA architecture}%
@@ -25,10 +27,10 @@
 			\end{figure}
 		\subsubsection{Problem specific}
 		
-	\subsection{Genotype}
-	\subsection{Fitness function}
-\section{Test cases}
-\section{Genotype-Phenotype mapping}
-\section{Practical implications}
-\section{Application in other problem domains}
+	\subsection{Genotype}\label{sec:geno}
+	\subsection{Fitness function}\label{sec:fitness}
+\section{Test cases}\label{sec:test}
+\section{Genotype-Phenotype mapping}\label{sec:mapping}
+\section{Practical implications}\label{sec:implications}
+\section{Application in other problem domains}\label{sec:applications}
 \end{document}

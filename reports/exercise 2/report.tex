@@ -330,6 +330,8 @@
 			\end{table}
 	
 \section{Genotype-Phenotype mapping}\label{sec:mapping}
+In our implementation the genes in the genotype class encodes the parameters of the spiking neuron. The parameters are the ones who decidede how the spiking train progress as time goes by. The genes does not dictate the traits of the phenotypes directly, so we have an indirect mapping (more specifically the genotype-phenotype mapping is a generative (developmental) encoding scheme. This encoding scheme has the advantage of being good at scaling (large phenotypes can be created from compact phenotypes), and it's more biologically realistic. On the other hand, generative encoding has the disadvantage of having a hard time finding needle in a haystack optimal solutions.
 \section{Practical implications}\label{sec:implications}
+The program we have built accepts spike trains as input data and finds the best parameters to recreate them with the Izhikevich spiking-neuron model. The input may be any spike train, and our program will strive to find parameters to reproduce the same spike trains. This can be used by a proper neuroscientist, for instance if s/he registers actual signals from real neurons in a real brain, and input the into our program. The program output can be used to simulate neurons (which behaves like the real one) and use them in a computer simulation of the brain.
 \section{Application in other problem domains}\label{sec:applications}
 \end{document}

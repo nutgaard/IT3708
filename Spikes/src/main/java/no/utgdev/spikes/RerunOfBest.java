@@ -27,7 +27,7 @@ import no.utgdev.spikes.spiketrain.distancemetric.Waveform;
 public class RerunOfBest {
 
     public static void main(String[] args) {
-        final int runPerCase = 20, retainBestCount = 20;
+        final int runPerCase = 10, retainBestCount = 5;
         runForIzzy(1, runPerCase, retainBestCount);
         runForIzzy(2, runPerCase, retainBestCount);
         runForIzzy(3, runPerCase, retainBestCount);
@@ -35,7 +35,7 @@ public class RerunOfBest {
     }
 
     private static void runForIzzy(int izzydata, int runs, int retain) {
-        File dir = new File("./backup/izzy" + izzydata + "/all/");
+        File dir = new File("./backup/izzy" + izzydata + "/wave/");
         File[] typeFiltered = dir.listFiles(new FilenameFilter() {
             Pattern p = Pattern.compile("(\\d{1,4})-izzy(\\d)-(\\d*?)gen-(\\d*?)pop-(\\d*?)tour-(\\d\\.\\d*)eps-(\\d\\.\\d*)cr-(\\d\\.\\d*)mr-(\\d*?)acc-(\\w*)-(\\w*)-(\\w*)\\.png");
 
@@ -48,7 +48,7 @@ public class RerunOfBest {
         double lastTime;
         for (Case c : bestFound) {
             System.out.println("Izzydata " + izzydata + " case: " + caseId);
-            File newDir = new File(dir.getParentFile(), "configs/"+String.valueOf(caseId) + "/");
+            File newDir = new File(dir.getParentFile(), "configswave/"+String.valueOf(caseId) + "/");
             System.out.println(newDir);
             newDir.mkdirs();
 

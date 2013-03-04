@@ -50,21 +50,21 @@ public class FindBest {
 
     private static void parse(int izzydata) throws Exception {
         GALoop ga = new GALoop(null);
-        File dir = new File("./backup/izzy" + izzydata + "/configs/");
+        File dir = new File("./backup/izzy" + izzydata + "/configswave/");
         RawSpikeTrain targetRaw = new SpikeTrainFromFile(ga).generate(new File(izzy[izzydata - 1]));
         SpikeTrainFromParameters generator = new SpikeTrainFromParameters(ga);
         TimingSpikeTrain target = new TimingSpikeTrain(ga, targetRaw);
         Pattern p = Pattern.compile("\\w:\\s(\\S*)\\s\\w:\\s(\\S*)\\s\\w:\\s(\\S*)\\s\\w:\\s(\\S*)\\s\\w:\\s(\\S*)");
-        String[] caseData = new String[20];
+        String[] caseData = new String[5];
         Triplet<Double, Integer, Integer> globalBest = new Triplet<Double, Integer, Integer>(-Double.MAX_VALUE, -1, -1);
         Triplet<Double, Integer, Integer> globalWorst = new Triplet<Double, Integer, Integer>(Double.MAX_VALUE, -1, -1);
         Triplet<Double, Double, Integer> globalBestAvg = new Triplet<Double, Double, Integer>(-Double.MAX_VALUE, 0., -1);
         Triplet<Double, Double, Integer> globalWorstAvg = new Triplet<Double, Double, Integer>(Double.MAX_VALUE, 0., -1);
-        for (int caseId = 0; caseId < 20; caseId++) {
+        for (int caseId = 0; caseId < 5; caseId++) {
             double best = -Double.MIN_VALUE, worst = Double.MAX_VALUE, avg = 0, std = 0;
             int bestRun = -1, worstRun = -1;
-            double[] data = new double[20];
-            for (int runId = 0; runId < 20; runId++) {
+            double[] data = new double[10];
+            for (int runId = 0; runId < 10; runId++) {
                 File config = new File(dir, caseId + "/" + runId + "/config.attr");
                 BufferedReader br = new BufferedReader(new FileReader(config));
                 Matcher m = p.matcher(br.readLine());
@@ -121,11 +121,11 @@ public class FindBest {
     }
 
     private static double fitness(TimingSpikeTrain target, TimingSpikeTrain raw) {
-//        return 1/(dm.distanceMetric(target, raw)+1);
+        return 1/(dm3.distanceMetric(target, raw)+1);
         
-        return 1/((dm.distanceMetric(target, raw) + 1)
-                * (dm2.distanceMetric(target, raw) + 1)
-                * (dm3.distanceMetric(target, raw) + 1)+1);
+//        return 1/((dm.distanceMetric(target, raw) + 1)
+//                * (dm2.distanceMetric(target, raw) + 1)
+//                * (dm3.distanceMetric(target, raw) + 1)+1);
     }
 
     private static String genLocalString(int runId, int bestRun, double bestFit, int worstRun, double worstFit, double avg, double sd) {

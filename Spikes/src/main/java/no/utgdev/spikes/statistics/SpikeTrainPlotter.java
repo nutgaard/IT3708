@@ -5,12 +5,11 @@
 package no.utgdev.spikes.statistics;
 
 import no.utgdev.spikes.spiketrain.RawSpikeTrain;
-import java.awt.Dimension;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
@@ -79,7 +78,13 @@ public class SpikeTrainPlotter {//extends JFrame {
     public void save(String filename, String subtitle) {
         try {
             chart.addSubtitle(new TextTitle(subtitle));
-            ChartUtilities.saveChartAsPNG(new File(filename), chart, 1920, 1080);
+            File chartF = new File(filename);
+            ChartUtilities.saveChartAsPNG(chartF, chart, 1920, 1080);
+            File file = new File(chartF.getParentFile(), "config.attr");
+            FileWriter fw = new FileWriter(file);
+            fw.append(subtitle);
+            fw.flush();
+            fw.close();
         } catch (IOException ex) {
             Logger.getLogger(SpikeTrainPlotter.class.getName()).log(Level.SEVERE, null, ex);
         }

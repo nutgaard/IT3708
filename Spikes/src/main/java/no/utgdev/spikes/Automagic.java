@@ -25,7 +25,7 @@ public class Automagic {
         String[] izzy = {"./data/izzy-train1.dat",
             "./data/izzy-train2.dat",
             "./data/izzy-train3.dat",
-            "./data/izzy-train4.dat",};
+            "./data/izzy-train4.dat"};
         String[] protocol = {//FullGenerationReplacement.class.getName(),
             GenerationalMixing.class.getName(), //OverProduction.class.getName()};
         };
@@ -33,9 +33,10 @@ public class Automagic {
             SigmaScalingMechanism.class.getName(),
             TournamentSelectionMechanism.class.getName(), //RankMechanism.class.getName()};
         };
-        String[] sdm = {SpikeTime.class.getName(),
-            SpikeInterval.class.getName(), //Waveform.class.getName()};
-        };
+//        String[] sdm = {SpikeTime.class.getName(),
+//            SpikeInterval.class.getName(), //Waveform.class.getName()};
+//        };
+        String[] sdm = {Waveform.class.getName()};
         double lasttime;
         for (String i : izzy) {
             for (String p : protocol) {

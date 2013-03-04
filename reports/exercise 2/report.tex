@@ -3,6 +3,8 @@
 \usepackage{float}
 \usepackage[margin=1.0in]{geometry}
 \usepackage{amsmath}
+\usepackage{caption}
+\usepackage{subcaption}
 \restylefloat{figure}
 	\title{IT3708 - Exercise 2}
 \author{
@@ -12,9 +14,9 @@
 \date{\today}
 \begin{document}
 \maketitle
-\pagebreak
-\tableofcontents
-\pagebreak
+%\pagebreak
+%\tableofcontents
+%\pagebreak
 \section{Description}
 	\subsection{Architecture GA-core}\label{sec:core}
 			Figure~\ref{fig:gastruct} below show the architecture of the core components for our evolutionary algorithm. The whole architecture is based around modularity and reusability, which can be seen by the abstract classes/interfaces named with italic font\footnote{\label{foot:abstractinterface}SelectionMechanism, SelectionProtocol, RangeBasedSelectionMechansim, StatisticsHandler, FitnessHandler, GenoType, PhenoType, Populationgenerator, PopulationParser}. This is a plain framework for solving problems through an evolitionary process and contains just the basics implementations for each interface, e.g. binary genotype, phenotype and populationgenerator, some selection mechanisms and protocols, and some population parsers in order to extract data from the process.
@@ -54,6 +56,170 @@
 			Fitness(F_j) &= \frac{1}{1+E_j}\nonumber
 		\end{align}
 \section{Test cases}\label{sec:test}
+	Intro
+	\subsection{Izzy 1}
+		\subsubsection{Spike time distance metric}
+			\begin{figure}[H]
+				\centering
+					\begin{subfigure}{.5\textwidth}
+						\centering
+						\includegraphics[width=\linewidth]{./../images/izzy1/time/plot.png}
+						
+						\label{fig:sub1a}
+					\end{subfigure}%
+					\begin{subfigure}{.5\textwidth}
+						\centering
+						\includegraphics[width=\linewidth]{./../images/izzy1/time/prog.png}
+						
+						\label{fig:sub1b}
+					\end{subfigure}
+					
+					\label{fig:plot1}
+			\end{figure}
+			
+		\subsubsection{Spike interval distance metric}
+			\begin{figure}[H]
+				\centering
+					\begin{subfigure}{.5\textwidth}
+						\centering
+						\includegraphics[width=\linewidth]{./../images/izzy1/interval/plot.png}
+						
+						\label{fig:sub2a}
+					\end{subfigure}%
+					\begin{subfigure}{.5\textwidth}
+						\centering
+						\includegraphics[width=\linewidth]{./../images/izzy1/interval/prog.png}
+						
+						\label{fig:sub2b}
+					\end{subfigure}
+					
+					\label{fig:plot2}
+			\end{figure}
+		
+		\subsubsection{Waveform distance metric}
+		
+	\subsection{Izzy 2}
+		\subsubsection{Spike time distance metric}
+			\begin{figure}[H]
+				\centering
+					\begin{subfigure}{.5\textwidth}
+						\centering
+						\includegraphics[width=\linewidth]{./../images/izzy2/time/plot.png}
+						
+						\label{fig:sub4a}
+					\end{subfigure}%
+					\begin{subfigure}{.5\textwidth}
+						\centering
+						\includegraphics[width=\linewidth]{./../images/izzy2/time/prog.png}
+						
+						\label{fig:sub4b}
+					\end{subfigure}
+					
+					\label{fig:plot4}
+			\end{figure}
+			
+		\subsubsection{Spike interval distance metric}
+			\begin{figure}[H]
+				\centering
+					\begin{subfigure}{.5\textwidth}
+						\centering
+						\includegraphics[width=\linewidth]{./../images/izzy2/interval/plot.png}
+						
+						\label{fig:sub5a}
+					\end{subfigure}%
+					\begin{subfigure}{.5\textwidth}
+						\centering
+						\includegraphics[width=\linewidth]{./../images/izzy2/interval/prog.png}
+						
+						\label{fig:sub5b}
+					\end{subfigure}
+					
+					\label{fig:plot5}
+			\end{figure}
+			
+		\subsubsection{Waveform distance metric}
+		
+	\subsection{Izzy 3}
+		\subsubsection{Spike time distance metric}
+			\begin{figure}[H]
+				\centering
+					\begin{subfigure}{.5\textwidth}
+						\centering
+						\includegraphics[width=\linewidth]{./../images/izzy3/time/plot.png}
+						
+						\label{fig:sub7a}
+					\end{subfigure}%
+					\begin{subfigure}{.5\textwidth}
+						\centering
+						\includegraphics[width=\linewidth]{./../images/izzy3/time/prog.png}
+						
+						\label{fig:sub7b}
+					\end{subfigure}
+					
+					\label{fig:plot7}
+			\end{figure}
+			
+		\subsubsection{Spike interval distance metric}
+			\begin{figure}[H]
+				\centering
+					\begin{subfigure}{.5\textwidth}
+						\centering
+						\includegraphics[width=\linewidth]{./../images/izzy3/interval/plot.png}
+						
+						\label{fig:sub8a}
+					\end{subfigure}%
+					\begin{subfigure}{.5\textwidth}
+						\centering
+						\includegraphics[width=\linewidth]{./../images/izzy3/interval/prog.png}
+						
+						\label{fig:sub8b}
+					\end{subfigure}
+					
+					\label{fig:test}
+			\end{figure}
+			
+		\subsubsection{Waveform distance metric}
+		
+	\subsection{Izzy 4}
+		\subsubsection{Spike time distance metric}
+			\begin{figure}[H]
+				\centering
+					\begin{subfigure}{.5\textwidth}
+						\centering
+						\includegraphics[width=\linewidth]{./../images/izzy4/time/plot.png}
+						
+						\label{fig:sub10a}
+					\end{subfigure}%
+					\begin{subfigure}{.5\textwidth}
+						\centering
+						\includegraphics[width=\linewidth]{./../images/izzy4/time/prog.png}
+						
+						\label{fig:sub10b}
+					\end{subfigure}
+					
+					\label{fig:plot10}
+			\end{figure}
+			
+		\subsubsection{Spike interval distance metric}
+			\begin{figure}[H]
+				\centering
+					\begin{subfigure}{.5\textwidth}
+						\centering
+						\includegraphics[width=\linewidth]{./../images/izzy4/interval/plot.png}
+						
+						\label{fig:sub11a}
+					\end{subfigure}%
+					\begin{subfigure}{.5\textwidth}
+						\centering
+						\includegraphics[width=\linewidth]{./../images/izzy4/interval/prog.png}
+						
+						\label{fig:sub11b}
+					\end{subfigure}
+					
+					\label{fig:plot11}
+			\end{figure}
+		\subsubsection{Waveform distance metric}
+	
 \section{Genotype-Phenotype mapping}\label{sec:mapping}
 \section{Practical implications}\label{sec:implications}
 \section{Application in other problem domains}\label{sec:applications}

@@ -381,4 +381,12 @@ In our implementation the genes in the genotype class encodes the parameters of 
 \section{Practical implications}\label{sec:implications}
 The program we have built accepts spike trains as input data and finds the best parameters to recreate them with the Izhikevich spiking-neuron model. The input may be any spike train, and our program will strive to find parameters to reproduce the same spike trains. This can be used by a proper neuroscientist, for instance if s/he registers actual signals from real neurons in a real brain, and input the into our program. The program output can be used to simulate neurons (which behaves like the real one) and use them in a computer simulation of the brain.
 \section{Application in other problem domains}\label{sec:applications}
+As mentioned in section \ref{sec:implications} our program finds the best parameters to create a neuron with the Izhikevich spiking-neuron model. It also measures the distance between our neuron and a target neuron, and tries to find a solution closer to the target. We can change our program by either allowing more distance metrics, change the way we measure fitness, or change the datarepresentation. The latter might be a way of generalizing the program: we could use different neurons, or perhaps a network of neurons, and use this to solve the traveling salesman problem.
+
+The prerequisites for using our program to solve traveling salesman problems would first of all encompass the datarepresentation: how are the cities connected to each other, etc. We would also need a fitness function where shorter paths yields better results. See \ref{fig:fig1337} for a sketch of the overall system.
+	\begin{figure}[H]
+		\centering
+			\includegraphics[width=0.5\linewidth]{./../images/sexyimage.jpg}
+		\label{fig:fig1337}
+	\end{figure}
 \end{document}

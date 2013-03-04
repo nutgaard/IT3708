@@ -9,7 +9,6 @@ target/
 *.toc
 *.dvi
 .settings/
-images/
 bin/
 backup/
 .project

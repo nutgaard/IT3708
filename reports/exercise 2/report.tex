@@ -29,8 +29,8 @@
 			\end{figure}
 
 		\subsubsection{Problem specific}\label{sec:specific}
-				In this exercise, we implement everything problem specific in a separate project. Our SpikeGenoType, SpikePhenoType, SpikeFitnessHandler and SpikePopulationCreator extends GenoType, PhenoType, FitnessHandler and PopulationGenerator from the core project respectivly.
-		Our Spike project also implements an abstraction for the SpikeTrain, including functionality for different spike train distance metrics (waveform, spike time, spike interval), reading from file, and writing to file.
+				In this exercise, we implement everything problem specific in a separate project, simply building upon the existing core functionality from project 1. Our SpikeGenoType, SpikePhenoType, SpikeFitnessHandler and SpikePopulationCreator extends GenoType, PhenoType, FitnessHandler and PopulationGenerator from the core project respectivly.
+		Our Spike project also implements an abstraction for the SpikeTrain, including functionality for different spike train distance metrics (waveform, spike time, spike interval), and reading spiketrains from file. The process of finding the spikes in a spiketrain was however altered slightly from the original description by anchoring the spiketrain at its start and end. This was done to avoid the spikes to shift along the x-axis but still yield good result when applying the SpikeTime or SpikeInterval SDM.
 	\subsection{Genotype}\label{sec:geno}
 		For the genotype representation we choose a discrete representation with cardinality $k~=~2$ and accuracy $acc$, which is decoded by the phenotype into the correct range based on which parameter the bit sequence is describing. The accuracy is an integer between 1 and 31, whihc determinds how many bits should be used to encode each parameter. The set of parameters for Izhikevich model each has it own range, described by $range_{param} \in [min_{param}, max_{param}]$. 
 		\begin{align}
@@ -55,15 +55,21 @@
 		\begin{align}
 			Fitness(F_j) &= \frac{1}{1+E_j}\nonumber
 		\end{align}
+		In some later stages of testing we also used a composite fitness function consisting of several SDMs, e.g. waveform distance metric and one of the SDM's relying on spike data. The combination of the SDMs was done by multiplying them together, where $SDM(F_j) = E_j$ for that SDM.
+		\begin{align}
+			Fitness(F_j, SDM_1, SDM_2, \ldots,SDM_n) &= \frac{1}{1+\prod_{i=1}^nSDM_i(F_j)}\nonumber
+		\end{align}
+\pagebreak
 \section{Test cases}\label{sec:test}
 	The twelve test cases can be found below. The figure to the left show the target spike train in red and the best case spike train found with a given SDM in blue. The figure to the right show the fitness progression throughout the generations, with best fitness shown in green, average fitness in red, standard deviation of fitness in blue and the average entropy between the parameters for the entire population. All images is in addition added to the final delivery in order to make them visible in their original size. 
 	
 	In the parameters section for each of the datasets you can find two tables. The first table show the fitness and Izhikevich parameters for your best fit cases, the fitness is the fitness given by the active SDM, hence a perfect fitness for one SDM may not be perfect for the other. The second table shows the most effective parameters found for each SDM and the average fitness and standard deviation found when running these multiple times. 
 	
-	The generation of these plots and numbers were done by doing an exhaustive search in parameter space generating 1728 unique test cases for each izzy dataset, where the top 20 of these were reselected for futher investigation. The top 20 cases were tested 20 induvidual times, each time recording the fitness and solution, in order to find the overall best solution to each dataset. All data from this process can be found on http://folk.ntnu.no/nicklau/it3708/ accompanied by a readme to explain the directory structure.
+	The generation of these plots and numbers were done by doing an exhaustive search in parameter space generating 1728 unique test cases with 1000 generations for each izzy dataset, where the top 20 of these were reselected for futher investigation. The top 20 cases were tested 20 induvidual times, each time recording the fitness and solution, in order to find the overall best solution to each dataset. All data from this process can be found on http://folk.ntnu.no/nicklau/it3708/ accompanied by a readme to explain the directory structure.
 	
 	\subsection{Izzy 1}
 		\subsubsection{Spike time distance metric}
+			The plot shows a really good correspondence between target and solution(fitness $0.8319$), which peaked at around generation $325$ and remained stable for the rest of the run.
 			\begin{figure}[H]
 				\centering
 					\begin{subfigure}{.5\textwidth}
@@ -78,11 +84,11 @@
 						
 						\label{fig:sub1b}
 					\end{subfigure}
-					
 					\label{fig:plot1}
 			\end{figure}
 			
 		\subsubsection{Spike interval distance metric}
+			The plot shows a really good correspondence between target and solution(fitness $1.0$), which peaked at around generation $410$ and remained stable for the rest of the run. Though it got a fitness score of $1.0$ the correspondence is not perfect, the intervals between each spike in the two spiketrains are however identical.
 			\begin{figure}[H]
 				\centering
 					\begin{subfigure}{.5\textwidth}
@@ -102,6 +108,7 @@
 			\end{figure}
 		
 		\subsubsection{Waveform distance metric}
+			The plot shows a really good correspondence between target and solution(fitness $0.8939$), which peaked at around generation $975$.
 			\begin{figure}[H]
 				\centering
 					\begin{subfigure}{.5\textwidth}
@@ -143,6 +150,7 @@
 		
 	\subsection{Izzy 2}
 		\subsubsection{Spike time distance metric}
+			The plot shows a really good correspondence between target and solution(fitness $0.9444$), which peaked at around generation $750$ and remained stable for the rest of the run.
 			\begin{figure}[H]
 				\centering
 					\begin{subfigure}{.5\textwidth}
@@ -162,6 +170,7 @@
 			\end{figure}
 			
 		\subsubsection{Spike interval distance metric}
+			The plot shows a really good correspondence between target and solution(fitness $0.8888$), which peaked at around generation $150$ and remained stable for the rest of the run.
 			\begin{figure}[H]
 				\centering
 					\begin{subfigure}{.5\textwidth}
@@ -181,6 +190,7 @@
 			\end{figure}
 			
 		\subsubsection{Waveform distance metric}
+			The plot shows a really good correspondence between target and solution(fitness $0.7306$), which peaked at around generation $910$ and remained stable for the rest of the run.
 			\begin{figure}[H]
 				\centering
 					\begin{subfigure}{.5\textwidth}
@@ -222,6 +232,7 @@
 		
 	\subsection{Izzy 3}
 		\subsubsection{Spike time distance metric}
+			The plot shows a really good correspondence between target and solution(fitness $0.7952$), which peaked at around generation $525$ and remained stable for the rest of the run.
 			\begin{figure}[H]
 				\centering
 					\begin{subfigure}{.5\textwidth}
@@ -241,6 +252,7 @@
 			\end{figure}
 			
 		\subsubsection{Spike interval distance metric}
+			The plot shows a really good correspondence between target and solution(fitness $0.8213$), which peaked at around generation $300$ and remained stable for the rest of the run.
 			\begin{figure}[H]
 				\centering
 					\begin{subfigure}{.5\textwidth}
@@ -260,6 +272,7 @@
 			\end{figure}
 			
 		\subsubsection{Waveform distance metric}
+			The plot shows a really good correspondence between target and solution(fitness $0.8478$), which peaked at around generation $50$ and remained stable for the rest of the run. The early convergence is most probable due to a lucky start which dominated the rest of the run.
 			\begin{figure}[H]
 				\centering
 					\begin{subfigure}{.5\textwidth}
@@ -300,6 +313,7 @@
 			\end{table}
 	\subsection{Izzy 4}
 		\subsubsection{Spike time distance metric}
+			The plot shows a really good correspondence between target and solution(fitness $1.0$), which peaked at around generation $225$ and remained stable for the rest of the run. Though it got a fitness score of $1.0$ the correspondence is not perfect, the time of each spike is however identical.
 			\begin{figure}[H]
 				\centering
 					\begin{subfigure}{.5\textwidth}
@@ -319,6 +333,7 @@
 			\end{figure}
 			
 		\subsubsection{Spike interval distance metric}
+			The plot shows a really good correspondence between target and solution(fitness $1.0$), which peaked at around generation $130$ and remained stable for the rest of the run. Though it got a fitness score of $1.0$ the correspondence is not perfect, the intervals between each spike in the two spiketrains are however identical.
 			\begin{figure}[H]
 				\centering
 					\begin{subfigure}{.5\textwidth}
@@ -337,6 +352,7 @@
 					\label{fig:plot11}
 			\end{figure}
 		\subsubsection{Waveform distance metric}
+			The plot shows a really good correspondence between target and solution(fitness $0.9300$), which peaked at around generation $400$ and remained stable for the rest of the run.
 			\begin{figure}[H]
 				\centering
 					\begin{subfigure}{.5\textwidth}
@@ -377,16 +393,23 @@
 			\end{table}
 	
 \section{Genotype-Phenotype mapping}\label{sec:mapping}
-In our implementation the genes in the genotype class encodes the parameters of the spiking neuron. The parameters are the ones who decidede how the spiking train progress as time goes by. The genes does not dictate the traits of the phenotypes directly, so we have an indirect mapping (more specifically the genotype-phenotype mapping is a generative (developmental) encoding scheme. This encoding scheme has the advantage of being good at scaling (large phenotypes can be created from compact phenotypes), and it's more biologically realistic. On the other hand, generative encoding has the disadvantage of having a hard time finding needle in a haystack optimal solutions.
-\section{Practical implications}\label{sec:implications}
-The program we have built accepts spike trains as input data and finds the best parameters to recreate them with the Izhikevich spiking-neuron model. The input may be any spike train, and our program will strive to find parameters to reproduce the same spike trains. This can be used by a proper neuroscientist, for instance if s/he registers actual signals from real neurons in a real brain, and input the into our program. The program output can be used to simulate neurons (which behaves like the real one) and use them in a computer simulation of the brain.
-\section{Application in other problem domains}\label{sec:applications}
-As mentioned in section \ref{sec:implications} our program finds the best parameters to create a neuron with the Izhikevich spiking-neuron model. It also measures the distance between our neuron and a target neuron, and tries to find a solution closer to the target. We can change our program by either allowing more distance metrics, change the way we measure fitness, or change the datarepresentation. The latter might be a way of generalizing the program: we could use different neurons, or perhaps a network of neurons, and use this to solve the traveling salesman problem.
+In our implementation the genes in the genotype class encodes the parameters of the spiking neuron. The parameters are the ones who decides how the spiking train progress as time goes by. The genes does not dictate the traits of the phenotypes directly, so we have an indirect mapping, more specifically the genotype-phenotype mapping is a generative (developmental) encoding scheme. This encoding scheme has the advantage of being good at scaling (large phenotypes can be created from compact genotypes), and it's more biologically realistic. On the other hand, generative encoding has the disadvantage of having a hard time finding needle in a haystack optimal solutions.
 
-The prerequisites for using our program to solve traveling salesman problems would first of all encompass the datarepresentation: how are the cities connected to each other, etc. We would also need a fitness function where shorter paths yields better results. See \ref{fig:fig1337} for a sketch of the overall system.
+\section{Practical implications}\label{sec:implications}
+The program we have built accepts spike trains as input data and finds the best parameters to recreate them with the Izhikevich spiking-neuron model. The input may be any spike train, and our program will strive to find parameters to reproduce the same spike trains. This can be used by a neuroscientist, for instance if s/he registers actual signals from real neurons in a real brain, and input the into our program. The program output can be used to simulate neurons (which behaves like the real one) and use them in a computer simulation of the brain.
+
+\section{Application in other problem domains}\label{sec:applications}
+As mentioned in section \ref{sec:implications} our program finds the best parameters to create a neuron with the Izhikevich spiking-neuron model. It also measures the distance between our neuron and a target neuron, and tries to find a solution closer to the target. We can change our program by either allowing more distance metrics, change the way we measure fitness, or change the datarepresentation. The latter might be a way of generalizing the program: we could use different neurons, or perhaps a network of neurons, and use this to solve more complex neuroscientific problems and perhaps even electrical circuit design problems. This would most certainly demand a change in the datarepresentation in order accompany the changes in the problem. In addition it can very well be used within acoustic problems as well, where the sound waves are analogous to the spiketrains. This may then be used for optimizing acoustics within a room. It is however uncertain wether or not the Izhikevich model would yield any usable results.
+
+In general, given new datarepresentations, fitnessfunctions and distance metrics, the algorithm should even be able to solve tasks such as traveling salesman. This would of course require new sets of genotype-phenotype and fitnessfunctions. The prerequisites for extending this tool to solve TSP would include a datarepresentation able to represent a solution instance and a fitness function which would yield better result for shorter paths. The overall sketch of such an system can be seen below in figure~\ref{fig:sketch}
+
+%The prerequisites for using our program to solve traveling salesman problems would first of all encompass the datarepresentation: how are the cities connected to each other, etc. We would also need a fitness function where shorter paths yields better results. See \ref{fig:fig1337} for a sketch of the overall system.
 	\begin{figure}[H]
 		\centering
-			\includegraphics[width=0.5\linewidth]{./../images/sexyimage.jpg}
-		\label{fig:fig1337}
+			%\includegraphics[width=0.5\linewidth]{./../images/sexyimage.jpg}
+			\includegraphics[width=.5\linewidth]{./../images/TSPStruct.png}
+		%\label{fig:fig1337}
+			\caption{Structure for solving TSP}
+			\label{fig:sketch}
 	\end{figure}
 \end{document}

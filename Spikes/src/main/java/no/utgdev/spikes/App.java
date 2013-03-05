@@ -38,7 +38,7 @@ public class App {
         properties.setProperty("core.generation.size", "1000");
         properties.setProperty("core.population.size", "200");
         properties.setProperty("spike.length", "1000");
-        properties.setProperty("debug.generational_sysout", "1000");
+        properties.setProperty("debug.generational_sysout", "100");
         properties.setProperty("spike.param.accuracy", "30");
 
 
@@ -73,7 +73,7 @@ public class App {
 
 
         AskingProperties ask = new AskingProperties(properties);
-//        properties = ask.ask();
+        properties = ask.ask();
         GALoop ga = new GALoop(properties);
         SpikeGenoType.setParams(ga, properties);
         SpikePhenoType.setParams(ga, properties);
@@ -82,9 +82,7 @@ public class App {
         List<SpikePhenoType> best = fm.get(fm.keySet().iterator().next());
         double fitnessBest = fm.get(best.get(0));
         System.out.println("Number of Top: " + best.size() + " Fitness: " + fm.get(best.get(0)));
-//        for (PhenoType pt : best) {
-//            System.out.println(pt);
-//        }
+
         RawSpikeTrain target = new SpikeTrainFromFile(ga).generate(new File(properties.getProperty("spike.target.uri")));
         String subtitle = subtitle(best.get(0));
         ((Plotting) ga.getStatisticsHandler()).save(fileName(fitnessBest, properties, true), subtitle);
@@ -93,25 +91,26 @@ public class App {
 
     private static String fileName(double prefix, Properties properties, boolean progression) {
         StringBuilder sb = new StringBuilder();
-        sb.append("./backup/");
+        sb.append("./");
+//        sb.append("./backup/");
         
         String n = String.valueOf(prefix);
         String dataset = properties.getProperty("spike.target.uri");
-        sb.append("izzy");
+//        sb.append("izzy");
         if (dataset.contains("1")) {
-            sb.append(1).append("/");
+//            sb.append(1).append("/");
             sb.append(n.substring(2, Math.min(6, n.length()))).append("-");
             sb.append("izzy").append(1);
         } else if (dataset.contains("2")) {
-            sb.append(2).append("/");
+//            sb.append(2).append("/");
             sb.append(n.substring(2, Math.min(6, n.length()))).append("-");
             sb.append("izzy").append(2);
         } else if (dataset.contains("3")) {
-            sb.append(3).append("/");
+//            sb.append(3).append("/");
             sb.append(n.substring(2, Math.min(6, n.length()))).append("-");
             sb.append("izzy").append(3);
         } else if (dataset.contains("4")) {
-            sb.append(4).append("/");
+//            sb.append(4).append("/");
             sb.append(n.substring(2, Math.min(6, n.length()))).append("-");
             sb.append("izzy").append(4);
         }

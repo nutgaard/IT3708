@@ -11,6 +11,7 @@ import no.utgdev.ga.core.GALoop;
 import no.utgdev.ga.core.fitness.FitnessMap;
 import no.utgdev.ga.core.selection.mechanism.AllMechanism;
 import no.utgdev.ga.core.selection.mechanism.SigmaScalingMechanism;
+import no.utgdev.ga.core.selection.mechanism.TournamentSelectionMechanism;
 import no.utgdev.ga.core.selection.protocol.AllProtocol;
 import no.utgdev.ga.core.selection.protocol.GenerationalMixing;
 
@@ -29,14 +30,14 @@ public class App {
         properties.setProperty("core.strategy.adult.mechanism", AllMechanism.class.getName());
         properties.setProperty("core.strategy.parent.protocol", AllProtocol.class.getName());
         properties.setProperty("core.generation.size", "10000");
-        properties.setProperty("core.population.size", "50");
+        properties.setProperty("core.population.size", "150");
         properties.setProperty("debug.generational_sysout", "100");
         properties.setProperty("core.strategy.adult.protocol", GenerationalMixing.class.getName());
-        properties.setProperty("core.strategy.parent.mechanism", SigmaScalingMechanism.class.getName());
+        properties.setProperty("core.strategy.parent.mechanism", TournamentSelectionMechanism.class.getName());
         properties.setProperty("tournament.size", "25");
-        properties.setProperty("tournament.eps", "0.05");
+        properties.setProperty("tournament.eps", "0.1");
         properties.setProperty("core.individual.crossover_rate", "0.9");
-        properties.setProperty("core.individual.mutation_rate", "0.4");
+        properties.setProperty("core.individual.mutation_rate", "0.35");
         
         GALoop ga = new GALoop(properties);
         CTRNNGenoType.setParams(ga, properties);

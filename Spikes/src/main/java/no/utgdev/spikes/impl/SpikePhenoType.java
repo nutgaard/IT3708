@@ -38,8 +38,6 @@ public class SpikePhenoType extends PhenoType<SpikeGenoType> {
         param = new double[5];
         for (int i = 0; i < 5; i++) {
             param[i] = range[i].getValue0() + (paramsSize[i] * Math.abs((range[i].getValue0() - range[i].getValue1()) / steps));
-//            System.out.println("Param: "+range[i].getValue0() +" "+paramsSize[i]+" " +(Math.abs((range[i].getValue0() - range[i].getValue1()) / steps)));
-//            System.out.println(paramsSize[i]*(Math.abs((range[i].getValue0() - range[i].getValue1()) / steps)));
         }
     }
     public static void setParams(GALoop loop, Properties properties) {

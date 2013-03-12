@@ -71,17 +71,17 @@ public class ANNBuilder {
             }
         }
     }
-    public static void main(String[] args) {
-        double[] data = {
-            1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-            1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-            1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-            1.0, 1.0, 1.0, 1.0
-        };
-        StructuredANN ann = build(data);
-        double[] input = {1.0, 1.0, 1.0, 1.0, 1.0};
-        for (int i = 0; i < 10; i++) {
-            System.out.println(Arrays.toString(ann.update(input)));
-        }
-    }
+//    public static void main(String[] args) {
+//        double[] data = {
+//            1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+//            1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+//            1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+//            1.0, 1.0, 1.0, 1.0
+//        };
+//        StructuredANN ann = build(data);
+//        double[] input = {1.0, 1.0, 1.0, 1.0, 1.0};
+//        for (int i = 0; i < 10; i++) {
+//            System.out.println(Arrays.toString(ann.update(input)));
+//        }
+//    }
 }

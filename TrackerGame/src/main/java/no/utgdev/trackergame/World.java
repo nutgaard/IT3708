@@ -21,18 +21,18 @@ public class World {
         this.controller = controller;
 
         createTracker((height - trackerSize) / 2, trackerSize);
-        createObject((int) (Math.random() * width), (int) (Math.random() * 5)+1, 0, 14);
+        createObject((int) (Math.random() * width), 1+(int)(Math.random()*6), 0, 14);
     }
 
     private void createTracker(int x, int size) {
         this.trackerRow = new boolean[width];
-        this.trackerX = x;
+        this.trackerX = (x+width)%width;
         this.trackerSize = size;
         wraparoundFill(this.trackerRow, x, x + size, true);
     }
 
     private void createObject(int x, int size, int velocity, int objectheight) {
-        this.objectX = x;
+        this.objectX = (x+width)%width;
         this.objectSize = size;
         this.objectRow = new boolean[width];
         wraparoundFill(this.objectRow, x, x + size, true);
@@ -46,6 +46,8 @@ public class World {
         }
         int nFrom = (from + width) % width;
         int nTo = (to + width) % width;
+//        System.out.println("From "+from+" "+nFrom);
+//        System.out.println("To "+to+" "+nTo);
         for (int i = 0, s = to-from; i < s; i++) {
             b[(nFrom+i) % width] = value;
         }
@@ -78,7 +80,7 @@ public class World {
             }
             double overlap = (shadowCount * 1.0) / objectSize;
             controller.objectDone(overlap, objectSize);
-            createObject((int) (Math.random() * width), (int) (Math.random() * 5)+1, 0, 14);
+            createObject((int) (Math.random() * width), 1+(int)(Math.random()*6), 0, 14);
         }
     }
 

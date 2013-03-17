@@ -75,13 +75,11 @@ public class ANNTrackerController implements TrackController {
         if (objectSize < 5) {
             //Should catch them
             if (overlap == 1.0) {
-//                System.out.println("Booyah, captured object");
                 score[0] += 2;
             }
         } else {
             //Avoid them
             if (overlap == 0.0) {
-//                System.out.println("Booyah, avoided that shit");
                 score[1] += 2;
             }
         }

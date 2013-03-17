@@ -29,15 +29,15 @@ public class App {
         properties.setProperty("core.statistics.handler", Plotting.class.getName());
         properties.setProperty("core.strategy.adult.mechanism", AllMechanism.class.getName());
         properties.setProperty("core.strategy.parent.protocol", AllProtocol.class.getName());
-        properties.setProperty("core.generation.size", "10000");
-        properties.setProperty("core.population.size", "150");
+        properties.setProperty("core.generation.size", "1000");
+        properties.setProperty("core.population.size", "100");
         properties.setProperty("debug.generational_sysout", "100");
         properties.setProperty("core.strategy.adult.protocol", GenerationalMixing.class.getName());
-        properties.setProperty("core.strategy.parent.mechanism", TournamentSelectionMechanism.class.getName());
+        properties.setProperty("core.strategy.parent.mechanism", SigmaScalingMechanism.class.getName());
         properties.setProperty("tournament.size", "25");
         properties.setProperty("tournament.eps", "0.1");
         properties.setProperty("core.individual.crossover_rate", "0.9");
-        properties.setProperty("core.individual.mutation_rate", "0.35");
+        properties.setProperty("core.individual.mutation_rate", "0.0");
         
         GALoop ga = new GALoop(properties);
         CTRNNGenoType.setParams(ga, properties);

@@ -21,6 +21,7 @@ public class CTRNNGenoType implements GenoType<CTRNNGenoType, CTRNNPhenoType> {
     private static final Pair<Double, Double> gainRange = new Pair<Double, Double>(1.0, 5.0);
     private static final Pair<Double, Double> tauRange = new Pair<Double, Double>(1.0, 2.0);
     private static double mutationRate;
+    
     private final boolean[] vector; //272 bit long, 34 params, 8bit per param
 
     public CTRNNGenoType(boolean[] vector) {

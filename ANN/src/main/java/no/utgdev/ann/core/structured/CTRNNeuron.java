@@ -23,7 +23,6 @@ public class CTRNNeuron extends AbstractNeuron {
 
     @Override
     public double activationFunction(double s) {
-        double dt = invTau*(-y+s);
         y += invTau*(-y+s);
         return 1/(1+Math.exp(-gain*y));
     }    

@@ -43,4 +43,7 @@ public abstract class AbstractNeuron {
         this.output = newOutput;
         newOutput = 0.0;
     }
+    public List<Synapse> getInputSynapses() {
+        return this.input;
+    }
 }

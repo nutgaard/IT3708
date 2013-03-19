@@ -78,7 +78,7 @@ public class GALoop {
             
             while (generationCounter < NOF_generations) {
                 if (generationCounter % generationalSysout == 0) {
-                    System.out.println("Generation " + generationCounter);
+//                    System.out.println("Generation " + generationCounter);
                 }
                 
                 //Register statistics

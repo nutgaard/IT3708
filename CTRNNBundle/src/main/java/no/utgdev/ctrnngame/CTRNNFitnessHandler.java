@@ -16,7 +16,7 @@ import no.utgdev.ga.core.population.Population;
  * @author Nicklas
  */
 public class CTRNNFitnessHandler extends FitnessHandler<CTRNNGenoType, CTRNNPhenoType> {
-    private static Map<double[], Double> mem;
+    private Map<double[], Double> mem;
 
     public CTRNNFitnessHandler(GALoop ga) {
         super(ga);

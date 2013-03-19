@@ -69,4 +69,14 @@ public class StructuredANN implements INeuralNet {
         }
         return output;
     }
+    public NeuralLayer[] getLayers(){
+        NeuralLayer[] l = new NeuralLayer[hiddenLayers.size()+2];
+        l[0] = inputLayer;
+        l[l.length-1] = outputLayer;
+        int i = 1;
+        for (NeuralLayer nl : hiddenLayers) {
+            l[i++] = nl;
+        }
+        return l;
+    }
 }

@@ -127,7 +127,9 @@ The architecture for GA has been covered in previous deliveries in this course, 
 		fitness &= \alpha catch\_reward+\beta avoid\_reward+\theta speed\_reward\nonumber\\
 		ratio(shadows, size) &= \frac{shadows}{size}\nonumber
 	\end{align}
-In order to gauge the outcome when an object reached the bottom we use the ratio shown above.
+In order to gauge the outcome when an object reached the bottom we use the ratio shown above, where $shadows$ is the number of shadows on the tracker, and $size$ is the size of the falling object.
+
+In order to find the best possible parameters for evolving a solution to this project we used a parallel exhaustive search in parameter space, with a fixed population size of 100, 200 generations. The top 20 cases were tested 20 induvidual times to find the parameters generating the 'on average' best solution. 
 	\subsection{Catch all}
 		\subsubsection{Fitness function}
 			\begin{align}
@@ -145,10 +147,43 @@ In order to gauge the outcome when an object reached the bottom we use the ratio
 					0.006 &\text{if $|speed| = 3$} \\
 					0.009 &\text{if $|speed| = 4$} \\
        \end{array} \right.\nonumber\\
-			 \alpha =\beta =\theta &= 1\nonumber\\
+			 \alpha =\beta =\theta &= 1\nonumber
 			\end{align}
 		\subsubsection{Parameters}
+			From our tests, exhaustive search with 20 cases of the 20 best found, we found that while using sigma scaling selecton mechanism a high mutation rate ($0.3-0.4$) yielded the best result. When sorting the average of each case we saw that the sigma scaling to a large degree dominated over a tournament based selection mechanism with a 5\% drop in fitness between the worst average using sigma scaling and best average of using a tournament best selection mechansim.
 		\subsubsection{Results}
+			The best average result we got scored 67.22 points out of a total of 85.4 (79\% of total). 
+			The parameters used to obtain this result can be seen in table~\ref{tab:resultAll}. 
+			\begin{table}[h]
+				\parbox{.45\linewidth}{
+					\centering
+					\begin{tabular}{ll}
+						Parameter & Value\\\hline
+						Selection Protocol & Generational mixing\\
+						Selection Mechanism & Sigma scaling\\
+						Crossover rate & 0.7\\
+						Mutation rate & 0.4\\
+						Population size & 100\\
+						Number of generations & 200
+					\end{tabular}
+					\caption{Parameters used to obtain best average case}
+					\label{tab:resultAll}
+				}
+				\hfill
+				\parbox{.45\linewidth}{
+					\centering
+					\begin{tabular}{ll}
+						Number of runs & 20 \\
+						Best run & 80.816\\
+						Worst run & 50.5\\
+						\hline
+						Average fitness & 67.22\\
+						Standard deviation & 8.7\\
+					\end{tabular}
+					\caption{Results for best case}
+					\label{tab:resultAll}
+				}
+			\end{table}
 	\subsection{Catch and avoid}
 		\subsubsection{Fitness function}
 		\subsubsection{Result}

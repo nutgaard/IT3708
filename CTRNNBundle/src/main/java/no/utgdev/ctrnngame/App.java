@@ -34,11 +34,11 @@ public class App {
         properties.setProperty("core.population.size", "100");
         properties.setProperty("debug.generational_sysout", "200");
         properties.setProperty("core.strategy.adult.protocol", GenerationalMixing.class.getName());
-        properties.setProperty("core.strategy.parent.mechanism", TournamentSelectionMechanism.class.getName());
+        properties.setProperty("core.strategy.parent.mechanism", SigmaScalingMechanism.class.getName());
         properties.setProperty("tournament.size", "50");
         properties.setProperty("tournament.eps", "0.3");
-        properties.setProperty("core.individual.crossover_rate", "0.6");
-        properties.setProperty("core.individual.mutation_rate", "0.6");
+        properties.setProperty("core.individual.crossover_rate", "0.9");
+        properties.setProperty("core.individual.mutation_rate", "0.5");
         
         if (args != null && args.length == 7) {
             properties.setProperty("core.strategy.adult.protocol", args[0]);

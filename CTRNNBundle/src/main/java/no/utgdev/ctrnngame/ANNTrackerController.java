@@ -43,8 +43,12 @@ public class ANNTrackerController implements TrackController {
         return o;
     }
 
-    public int move(boolean[] shadows) {
+    public int move(boolean[] shadows, int objectheight) {
         double[] input = new double[shadows.length];
+        if (ANNBuilder.modifiedTopology) {
+            input = new double[shadows.length+1];
+            input[input.length-1] = objectheight;
+        }
         for (int i = 0; i < shadows.length; i++) {
             if (shadows[i]) {
                 input[i] = 1.0;

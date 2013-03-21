@@ -20,13 +20,14 @@ public class CTRNNPopulationCreator extends PopulationGenerator<CTRNNPhenoType> 
 
     @Override
     public Population<CTRNNPhenoType> create(int count) {
-        int totalBit = 272;
+        int totalBit = 8 * ((ANNBuilder.modifiedTopology) ? 36 : 34);
         CTRNNPhenoType[] list = new CTRNNPhenoType[count];
         for (int i = 0; i < count; i++) {
             list[i] = createPhenoType(totalBit);
         }
         return new Population<CTRNNPhenoType>(list);
     }
+
     private CTRNNPhenoType createPhenoType(int bitsize) {
         boolean[] b = new boolean[bitsize];
         for (int i = 0; i < bitsize; i++) {
@@ -34,7 +35,10 @@ public class CTRNNPopulationCreator extends PopulationGenerator<CTRNNPhenoType> 
                 b[i] = true;
             }
         }
-        return new CTRNNGenoType(b).develop();
+        if (bitsize == 272) {
+            return new CTRNNGenoType(b).develop();
+        } else {
+            return new ExtendedCTRNNGenoType(b).develop();
+        }
     }
-    
 }

@@ -5,35 +5,20 @@
 package no.utgdev.ctrnngame;
 
 import java.util.Arrays;
-import java.util.Properties;
-import no.utgdev.ga.core.GALoop;
-import no.utgdev.ga.core.population.GenoType;
-import no.utgdev.ga.utils.TypedProperties;
-import org.javatuples.Pair;
 
 /**
  *
  * @author Nicklas
  */
-public class CTRNNGenoType implements GenoType<CTRNNGenoType, CTRNNPhenoType> {
-    protected static final Pair<Double, Double> weightRange = new Pair<Double, Double>(-5.0, 5.0);
-    protected static final Pair<Double, Double> biasRange = new Pair<Double, Double>(-10.0, 0.0);
-    protected static final Pair<Double, Double> gainRange = new Pair<Double, Double>(1.0, 5.0);
-    protected static final Pair<Double, Double> tauRange = new Pair<Double, Double>(1.0, 2.0);
-    protected static double mutationRate;
-    
-    protected final boolean[] vector; //272 bit long, 34 params, 8bit per param
+public class ExtendedCTRNNGenoType extends CTRNNGenoType {
 
-    public CTRNNGenoType(boolean[] vector) {
-        this.vector = vector;
+    public ExtendedCTRNNGenoType(boolean[] vector) {
+        super(vector);
     }
-    public static void setParams(GALoop ga, Properties properties) {
-        TypedProperties props = new TypedProperties(properties);
-        mutationRate = props.getDouble("core.indicidual.mutation_rate", 0.1);
-    }
+    
     public CTRNNPhenoType develop() {
         int[] step = Utils.translate(vector, 8);
-        double[] data = new double[34];
+        double[] data = new double[36];
         int dataInd = 0;
         for (int i = 0; i < 4; i++) {
             //translate gains
@@ -43,22 +28,22 @@ public class CTRNNGenoType implements GenoType<CTRNNGenoType, CTRNNPhenoType> {
             //translate tau
             data[dataInd++] = tauRange.getValue0()+(step[i]*Math.abs((tauRange.getValue0() - tauRange.getValue1())/265));
         }
-        for (int i = 8; i < 30; i++) {
+        for (int i = 8; i < 32; i++) {
             //translate normal arcs
             data[dataInd++] = weightRange.getValue0()+(step[i]*Math.abs((weightRange.getValue0() - weightRange.getValue1())/265));
         }
-        for (int i = 30; i < 34; i++) {
+        for (int i = 32; i < 36; i++) {
             //translate bias arcs
             data[dataInd++] = biasRange.getValue0()+(step[i]*Math.abs((biasRange.getValue0() - biasRange.getValue1())/265));
         }
         return new CTRNNPhenoType(this, data);
     }
 
-    public CTRNNGenoType crossover(CTRNNGenoType other) {
+    public ExtendedCTRNNGenoType crossover(ExtendedCTRNNGenoType other) {
         if (vector.length != other.vector.length) {
             throw new ArrayIndexOutOfBoundsException("Unequal length of bitvectors");
         }
-        int pivot = 1+(int)(Math.random()*33)*8;
+        int pivot = 1+(int)(Math.random()*35)*8;
         boolean[] n = new boolean[vector.length];
         if (Math.random() > 0.5) {
             System.arraycopy(vector, 0, n, 0, pivot);
@@ -67,22 +52,22 @@ public class CTRNNGenoType implements GenoType<CTRNNGenoType, CTRNNPhenoType> {
             System.arraycopy(other.vector, 0, n, 0, pivot);
             System.arraycopy(vector, pivot, n, pivot, n.length - pivot);
         }
-        return new CTRNNGenoType(n);
+        return new ExtendedCTRNNGenoType(n);
     }
 
-    public CTRNNGenoType mutate() {
+    public ExtendedCTRNNGenoType mutate() {
         boolean[] n = Arrays.copyOf(vector, vector.length);
         for (int i = 0; i < vector.length; i++) {
             if (Math.random() < mutationRate) {
                 n[i] ^= true;
             }
         }
-        return new CTRNNGenoType(n);
+        return new ExtendedCTRNNGenoType(n);
     }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("CTRNNGenoType{");
+        sb.append("ExtendedCTRNNGenoType{");
         sb.append("vector=");
         for (boolean b : vector) {
             sb.append(((b) ? "1" : "0"));

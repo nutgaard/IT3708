@@ -35,9 +35,9 @@ public class ANNTrackerController implements TrackController {
         }
         double o = 0;
 //        double scale = 1./3;
-        double scale = 1.;
+        double[] scale = {1, 1, 1};
         for (int i = 0; i < 3; i++) {
-            o += scale * score[i];
+            o += scale[i] * score[i];
         }
         //System.out.println("Scales: "+scale+" Score: "+Arrays.toString(score)+" O: "+o);
         return o;
@@ -64,6 +64,7 @@ public class ANNTrackerController implements TrackController {
         } else if (diff <= 0.33333) {
 //        	System.out.println("SPEEDY: 1");
             move = (int) (sign * 1);
+//            score[2] += 0.001;
         } else if (diff <= 0.55555) {
 //        	System.out.println("SPEEDY: 2");
             move = (int) (sign * 2);

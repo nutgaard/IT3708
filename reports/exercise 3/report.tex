@@ -1,11 +1,12 @@
-	\documentclass[10pt]{article}
+	\documentclass[12pt]{article}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{amsmath}
-\usepackage[margin=0.7in]{geometry}
+\usepackage[margin=1.0in]{geometry}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{multicol}
+\usepackage{url}
 
 \restylefloat{figure}
 	\title{IT3708 - Exercise 3}
@@ -21,7 +22,7 @@
 %\pagebreak
 \section{Overview}
 	\subsection{System}
-		The system used to solve this exercise consists of four maven projects\footnote{Maven - http://maven.apache.org/}, 
+		The system used to solve this exercise consists of four maven projects\footnote{Maven - \url{http://maven.apache.org/}}, 
 		\begin{table}[H]
 			\begin{tabular}{ll}
 				\textbf{GA} & Genetic algoritm framework\\
@@ -34,7 +35,7 @@
 		\end{table}
 The architecture for GA has been covered in previous deliveries in this course, and will therefor not be covered here. We will however give a brief introduction to the new projects within this exercise. 
 		
-	\textbf{ANN}(Figure~\ref{fig:annstruct}) gives the basis building blocks for building artificial neural networks, it is large based around the same structure one would see in graph problems\footnote{Graph theory - http://en.wikipedia.org/wiki/Graph\_theory}, but with the addition of \textit{NeuralLayer}. In comparison to normal graphs the nodes has been replaces by neurons and the edges replace by synapses. Though the \textit{NeualLayer} abstraction is not necessary it provides and easy way of structuring the network. To bring it all together and keep track of the network we have \textit{StructuredANN}.
+	\textbf{ANN}(Figure~\ref{fig:annstruct}) gives the basis building blocks for building artificial neural networks, it is large based around the same structure one would see in graph problems\footnote{Graph theory - \url{http://en.wikipedia.org/wiki/Graph_theory}}, but with the addition of \textit{NeuralLayer}. In comparison to normal graphs the nodes has been replaces by neurons and the edges replace by synapses. Though the \textit{NeualLayer} abstraction is not necessary it provides and easy way of structuring the network. To bring it all together and keep track of the network we have \textit{StructuredANN}.
 
 		\textbf{TrackerGame}(Figure~\ref{fig:trackergamestruct}) is the implementation of the game described in the exercise description. It consist only of two entities, \textit{World} and \textit{TrackController}. \textit{World} is the govering entity, in charge of updating the models, and asking the \textit{TrackController} for its next move. 
 
@@ -68,12 +69,12 @@ The architecture for GA has been covered in previous deliveries in this course, 
 		\parbox{.45\linewidth}{
 			\centering
 			\begin{tabular}{ll}
-				0..4 & gains for hidden then output\\
-        4..8 & time constants for hidden then output\\
-        8..18 & weights originating in inputlayer\\
-				18..26 & weights originating in hiddenLayer\\
-        26..30 & weights originating in outputlayer\\
-				30..34 & weights originating in baislayer
+				0..4 & gains\\
+        4..8 & time constants\\
+        8..18 & weights out of inputlayer\\
+				18..26 & weights out of hiddenLayer\\
+        26..30 & weights out of outputlayer\\
+				30..34 & weights out of baislayer
 			\end{tabular}
 			\caption{Structure of bitvector}
 		}
@@ -239,7 +240,7 @@ In order to find the best possible parameters for evolving a solution to this pr
 			\end{table}
 			\begin{figure}%
 				\centering
-				\includegraphics[width=.7\columnwidth]{./../images/fitnessplot.png}%
+				\includegraphics[width=.8\columnwidth]{./../images/fitness.png}%
 				\caption{Fitness plot of best run in best average case}%
 				\label{fig:best}%
 			\end{figure}
@@ -258,14 +259,76 @@ In order to find the best possible parameters for evolving a solution to this pr
 		The change we made was to add another input node, which received the height of the current object, and connected this node to the two nodes in the hidden layer. This required the evolution of more weights, so these were also added to the genotype, phenotype, population creator and the network builder.
 		
 	\subsection{Result}
+		The best average case we found had 51.98 in fitness (a slight increase, but not enough to be considered significant) compared to the original best average case with a average fitness of 51.11. In general we saw no or little change in the behaviour of the tracker even though it now had more information about the environment. In some standalone tests we tried adding penalties for failing to catch or failing to avoid an object. We were then able to create networks that stop when the object were close to the ground regardless of shadow sensor states, indicating that the tracker was not willing to take risk of getting a partial hit or catching a big object. If it got the time to investigate the object it did behave in a very similar way to the original tracker. 
+		
 \section{Modified variable ranges}
 	\subsection{The change}
 		The range we decided to modify was the bias weight range, the reasoning behind this is that we wanted to the ability to influence most parts of the networks without necessarily changing all the weight ranges. The bias range gives us the possibility to influence the hidden and output layer, without influencing the weights in general. We changes the range of the bias weights from $[-10, 0]$ to $[-10, 10]$. 
+			
 	\subsection{Result}
+		The change in the bias weight range yielded an increase in the average best fitness, while the original was 51.11 the extended bias weight have 55.68. Another noticable factor is that the best average case had a lower mutation rate then previous cases, this seems however to be more of a coincidence when looking at the rest of the top contenders which all had very high mutation rates (0.6-0.8). 
+		Based on a set of standalone tests we notices that there was little to none change it the trackers general behaviour. We did however find some new interesting "`personalities"', one which alternated between movement speed 3 and 0 when not faced with any shadows. 
 		
 \section{Multi-objective evolution}
-	The \textit{TrackerGame} and \textit{ANNTrackerController} implementation used throughout this project supported multi objective fitness for the get-go, no changes were therefore needed at this point. As seen by the fitness function in section~\ref{sec:fitness1} we had the option of scaling the different fitnesscontributor \textit{catch}, \textit{avoid} and \textit{speed}. Previously in this project a positive incentive has been used to encourage faster movement in the tracker, it should however get mentioned that the weights of each objective function have all been set to 1 during this period. By shifting the sign of the incentive and allowing different weights for the object function we are able to solve the multi objective problem of maximizing capture while minimizing movement. 
+	The \textit{TrackerGame} and \textit{ANNTrackerController} implementation used throughout this project supported multi objective fitness for the get-go, no changes were therefore needed at this point. As seen by the fitness function in section~\ref{sec:fitness1} we had the option of scaling the different fitnesscontributor \textit{catch}, \textit{avoid} and \textit{speed}. Previously in this project a positive incentive has been used to encourage faster movement in the tracker, it should however get mentioned that the weights of each objective function have all been set to 1 during this period. By shifting the sign of the incentive and allowing different weights for the object function we are able to solve the multi objective problem of maximizing capture while minimizing movement. The fitness function used to obtain for this problem can seen below.\footnote{Weighted sum approach - \url{https://www.rci.rutgers.edu/~coit/RESS_2006_MOGA.pdf}}
 	
-\section{Appendix}
+	\begin{align}
+		fitness &= \alpha catch\_reward+\beta avoid\_reward+\theta speed\_reward\nonumber\\
+		ratio(shadows, size) &= \frac{shadows}{size}\nonumber\\
+		catch\_reward(shadows, size) &= \left\{ 
+			\begin{array}{l l}
+				2 &\text{if $ratio=1$ and $object\_size < 5$} \\
+				0 &\text{else}
+			\end{array} \right.\nonumber\\
+				avoid\_reward(shadows, size) &= \left\{ 
+					\begin{array}{l l}
+						2 &\text{if $ratio=0$ and $object\_size >= 5$} \\
+						0 &\text{else}
+					\end{array} \right.\nonumber\\
+				speed\_reward(speed) &= \left\{ 
+				\begin{array}{l l}
+					0.000 &\text{if $|speed| = 0$} \\
+					0.001 &\text{if $|speed| = 1$} \\
+					0.003 &\text{if $|speed| = 2$} \\
+					0.006 &\text{if $|speed| = 3$} \\
+					0.009 &\text{if $|speed| = 4$} \\
+       \end{array} \right.\nonumber\\
+			 \alpha =\beta &= 1\nonumber\\
+			 \theta &= -1\nonumber
+		\end{align}
 	
+	\subsection{Result}
+		When running the same experiment as in the previous test we found an best average case had fitness $52.03$, slightly worse then the original catch and avoid experiment. In the behaviour we saw the negative reinforment for speed play it role, almost exclusively preferred moving with a low speed and stopping early. In general it seemed like the trackers from this experiment had a much lower threshold for stopping then previous trackers, which seems consistent with the fitness function used. 
+		
+		The comparison of fitness value above also seems to be consistent with the objectives and fitness function. This is based on the fact that the larges penalty for high speed was relatively small compared to the gains by catching objects. In our conclusion of the experiment is seems like the tracker does the same amount of catching and avoiding, and that the small difference in that average fitness comes from the speed penalties. This combined with the overall lowered speed of the tracker is enough that we can conclude that the MOEA was successful.
+		\begin{table}[h]
+				\parbox{.45\linewidth}{
+					\centering
+					\begin{tabular}{ll}
+						Parameter & Value\\\hline
+						Selection Protocol & Generational mixing\\
+						Selection Mechanism & Sigma scaling\\
+						Crossover rate & 0.6\\
+						Mutation rate & 0.5\\
+						Population size & 100\\
+						Number of generations & 200
+					\end{tabular}
+					\caption{Parameters used to obtain best average case}
+					\label{tab:resultAvoidmoea}
+				}
+				\hfill
+				\parbox{.45\linewidth}{
+					\centering
+					\begin{tabular}{ll}
+						Number of runs & 20 \\
+						Best run & 63.28\\
+						Worst run & 40.00\\
+						\hline
+						Average fitness & 52.03\\
+						Standard deviation & 6.37\\
+					\end{tabular}
+					\caption{Results for best case}
+					\label{tab:resultAvoidmoea}
+				}
+			\end{table}
 \end{document}

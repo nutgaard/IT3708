@@ -186,7 +186,7 @@ In order to find the best possible parameters for evolving a solution to this pr
 			\end{table}
 	\subsection{Catch and avoid}
 		We used the same approch as earlier to determind the best average for a given set of parameters to the evolutionary algorithm. The 20 best of an exhaustive search was picked out and tested by running them 20 more times. 
-		\subsubsection{Fitness function}
+		\subsubsection{Fitness function}\label{sec:fitness}
 			The fitness function we used to evolve both catching and avoiding is in the great scheme of things similar to the one described in section~\ref{sec:fitness1}. The modifications can be seen below.
 			\begin{align}
 				catch\_reward(shadows, size) &= \left\{ 
@@ -252,9 +252,20 @@ In order to find the best possible parameters for evolving a solution to this pr
 		Though the fitness function was not changed we see a change in both the average best, and single best. In both cases about 5 in fitness was lost. Based on the different "`personalities "` we have seen from our trackers, we believe that there can be several explanations to why it yields a lower fitness overall, with the width of the arena being the greatest influential factor. In many cases we have seen trackers that don't utilize their full speed range, many of them prefers keeping a relative low speed at around 1-2. In some cases this may mean that the tracker never discovers the object before it has allready landed. But due to the ratio between the height and width being the same as in the original scenario, we don't believe this to be the deciding factor. In order to find an explanation to the lowered fitness we tried looking at how the tracker experienced the environment, the main difference we found between the two arenas was the amount of timesteps the tracker would go without seeing an object. This long exposure to the same input combined with the neural network's memory could cause it to skip the smallest object(1s and 2s) since it doesn't manage to deaccelerate to a standstill before it has passed the object. 
 		
 \section{Modified topology}
-	
+	\subsection{The change}
+		Keeping the fitness function equal to the one described in section~\ref{sec:fitness} and the original tracker scenario we decided to try mitigating one of the problem we had seen in previous test run, namely the problem where a new object spawned overlapping the tracker causing it to wait the object regardless of size and the overlapping ratio. 
+		
+		The change we made was to add another input node, which received the height of the current object, and connected this node to the two nodes in the hidden layer. This required the evolution of more weights, so these were also added to the genotype, phenotype, population creator and the network builder.
+		
+	\subsection{Result}
 \section{Modified variable ranges}
-\section{In depth}
+	\subsection{The change}
+		The range we decided to modify was the bias weight range, the reasoning behind this is that we wanted to the ability to influence most parts of the networks without necessarily changing all the weight ranges. The bias range gives us the possibility to influence the hidden and output layer, without influencing the weights in general. We changes the range of the bias weights from $[-10, 0]$ to $[-10, 10]$. 
+	\subsection{Result}
+		
+\section{Multi-objective evolution}
+	The \textit{TrackerGame} and \textit{ANNTrackerController} implementation used throughout this project supported multi objective fitness for the get-go, no changes were therefore needed at this point. As seen by the fitness function in section~\ref{sec:fitness1} we had the option of scaling the different fitnesscontributor \textit{catch}, \textit{avoid} and \textit{speed}. Previously in this project a positive incentive has been used to encourage faster movement in the tracker, it should however get mentioned that the weights of each objective function have all been set to 1 during this period. By shifting the sign of the incentive and allowing different weights for the object function we are able to solve the multi objective problem of maximizing capture while minimizing movement. 
+	
 \section{Appendix}
 	
 \end{document}

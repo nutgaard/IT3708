@@ -4,10 +4,11 @@
  */
 package no.utgdev.ctrnngame;
 
-import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+
+import no.utgdev.ann.core.structured.StructuredANN;
 import no.utgdev.ga.core.GALoop;
 import no.utgdev.ga.core.fitness.FitnessMap;
 import no.utgdev.ga.core.selection.mechanism.AllMechanism;
@@ -15,6 +16,7 @@ import no.utgdev.ga.core.selection.mechanism.SigmaScalingMechanism;
 import no.utgdev.ga.core.selection.mechanism.TournamentSelectionMechanism;
 import no.utgdev.ga.core.selection.protocol.AllProtocol;
 import no.utgdev.ga.core.selection.protocol.GenerationalMixing;
+import no.utgdev.trackergame.World;
 
 /**
  *
@@ -22,7 +24,7 @@ import no.utgdev.ga.core.selection.protocol.GenerationalMixing;
  */
 public class App {
     public static int doneCount = 0;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Properties properties = new Properties();
         //Do not touch
         properties.setProperty("core.population.generator", CTRNNPopulationCreator.class.getName());
@@ -30,15 +32,15 @@ public class App {
         properties.setProperty("core.statistics.handler", Plotting.class.getName());
         properties.setProperty("core.strategy.adult.mechanism", AllMechanism.class.getName());
         properties.setProperty("core.strategy.parent.protocol", AllProtocol.class.getName());
-        properties.setProperty("core.generation.size", "200");
+        properties.setProperty("core.generation.size", "1000");
         properties.setProperty("core.population.size", "100");
         properties.setProperty("debug.generational_sysout", "200");
         properties.setProperty("core.strategy.adult.protocol", GenerationalMixing.class.getName());
         properties.setProperty("core.strategy.parent.mechanism", SigmaScalingMechanism.class.getName());
-        properties.setProperty("tournament.size", "50");
-        properties.setProperty("tournament.eps", "0.3");
-        properties.setProperty("core.individual.crossover_rate", "0.9");
-        properties.setProperty("core.individual.mutation_rate", "0.5");
+        properties.setProperty("tournament.size", "75");
+        properties.setProperty("tournament.eps", "0.1");
+        properties.setProperty("core.individual.crossover_rate", "0.1");
+        properties.setProperty("core.individual.mutation_rate", "0.1");
         
         if (args != null && args.length == 7) {
             properties.setProperty("core.strategy.adult.protocol", args[0]);
@@ -55,10 +57,20 @@ public class App {
         FitnessMap<CTRNNPhenoType> fm = (FitnessMap<CTRNNPhenoType>) ga.run();
         List<CTRNNPhenoType> best = fm.get(fm.keySet().iterator().next());
         double fitnessBest = fm.get(best.get(0));
-//        System.out.println("Number of Top: " + best.size() + " Fitness: " + fm.get(best.get(0)));
-//        System.out.println(Arrays.toString(best.get(0).getData()));
-        ((Plotting) ga.getStatisticsHandler()).save(fileName(fitnessBest, properties, true), "Fitness: "+new DecimalFormat("##.##").format(fitnessBest));
+        System.out.println("Number of Top: " + best.size() + " Fitness: " + fm.get(best.get(0)));
+        System.out.println(Arrays.toString(best.get(0).getData()));
+//        ((Plotting) ga.getStatisticsHandler()).save(fileName(fitnessBest, properties, true), "Fitness: "+new DecimalFormat("##.##").format(fitnessBest));
         System.out.println("Done: "+(++doneCount));
+        
+        StructuredANN ann = ANNBuilder.build(best.get(0).getData());
+                       ANNTrackerController tracker = new ANNTrackerController(ann);
+                       World w = tracker.getWorld();
+                       // while (in.next().length() > 0) {
+                       while (true) {
+                               tracker.printWorld();
+                               Thread.sleep(300);
+                               w.update();
+                       }
     }
     private static String fileName(double prefix, Properties properties, boolean progression) {
         StringBuilder sb = new StringBuilder();

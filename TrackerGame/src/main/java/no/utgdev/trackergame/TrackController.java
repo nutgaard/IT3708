@@ -9,6 +9,6 @@ package no.utgdev.trackergame;
  * @author Nicklas
  */
 public interface TrackController {
-    public int move(boolean[] shadows);
+    public int move(boolean[] shadows, int objectheight);
     public void objectDone(double overlap, int objectSize);
 }

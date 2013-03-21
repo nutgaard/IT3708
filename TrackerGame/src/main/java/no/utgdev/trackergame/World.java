@@ -62,7 +62,7 @@ public class World {
             }
         }
         //Update tracker
-        int m = controller.move(shadow);
+        int m = controller.move(shadow, objectHeight);
         createTracker(trackerX + m, trackerSize);
 
         //Update object

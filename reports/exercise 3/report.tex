@@ -131,7 +131,7 @@ In order to gauge the outcome when an object reached the bottom we use the ratio
 
 In order to find the best possible parameters for evolving a solution to this project we used a parallel exhaustive search in parameter space, with a fixed population size of 100, 200 generations. The top 20 cases were tested 20 induvidual times to find the parameters generating the 'on average' best solution. 
 	\subsection{Catch all}
-		\subsubsection{Fitness function}
+		\subsubsection{Fitness function}\label{sec:fitness1}
 			\begin{align}
 				catch\_reward(shadows, size) &= \left\{ 
 				\begin{array}{l l}
@@ -185,10 +185,74 @@ In order to find the best possible parameters for evolving a solution to this pr
 				}
 			\end{table}
 	\subsection{Catch and avoid}
+		We used the same approch as earlier to determind the best average for a given set of parameters to the evolutionary algorithm. The 20 best of an exhaustive search was picked out and tested by running them 20 more times. 
 		\subsubsection{Fitness function}
+			The fitness function we used to evolve both catching and avoiding is in the great scheme of things similar to the one described in section~\ref{sec:fitness1}. The modifications can be seen below.
+			\begin{align}
+				catch\_reward(shadows, size) &= \left\{ 
+				\begin{array}{l l}
+					2 &\text{if $ratio=1$ and $object\_size < 5$} \\
+					0 &\text{else}
+       \end{array} \right.\nonumber\\
+				avoid\_reward(shadows, size) &= \left\{ 
+				\begin{array}{l l}
+					2 &\text{if $ratio=0$ and $object\_size >= 5$} \\
+					0 &\text{else}
+       \end{array} \right.\nonumber\\
+			\end{align}
+		\subsubsection{Behaviour}
+				Our agent moves in the same direction at all times with a speed of 2 when it does not see any shadows. Upon receiving input from on or more of its shadow sensors it speeds up to 3 in order to get under the object as fast as possible. When it is under the object it is able to determind the size of the object, if the object should be catched it usually stops and waits for the object, in the case where it sees a big object it continues to speed up to 4 and gets away from the object. There are some issues with this agent, in some cases it speeds up to much in order to avoid an object and ends up going a full circle before the object land on top of the tracker. Another problem is with spawning of new objects that partially cover the shadowssensor, in this case it does not recognize that it is a new object and continues to wait for it to land. But in most cases it is very successful in its behaviour.
 		\subsubsection{Result}
+			The best average result we got scored 51.11 points out of a total of 85.4 (60\% of total). 
+			The parameters used to obtain this result can be seen in table~\ref{tab:resultAvoid}. 
+			
+			In general we found that a fitness above 50 will behave logically in one or another way related to the task at hand. From our test trails we had 156 different networks that scored over 50 in fitness, and 26 that had over 60. This is based on a total of 1012 different runs. 
+			\begin{table}[h]
+				\parbox{.45\linewidth}{
+					\centering
+					\begin{tabular}{ll}
+						Parameter & Value\\\hline
+						Selection Protocol & Generational mixing\\
+						Selection Mechanism & Sigma scaling\\
+						Crossover rate & 0.9\\
+						Mutation rate & 0.5\\
+						Population size & 100\\
+						Number of generations & 200
+					\end{tabular}
+					\caption{Parameters used to obtain best average case}
+					\label{tab:resultAvoid}
+				}
+				\hfill
+				\parbox{.45\linewidth}{
+					\centering
+					\begin{tabular}{ll}
+						Number of runs & 20 \\
+						Best run & 64.66\\
+						Worst run & 41.00\\
+						\hline
+						Average fitness & 51.11\\
+						Standard deviation & 7.83\\
+					\end{tabular}
+					\caption{Results for best case}
+					\label{tab:resultAvoid}
+				}
+			\end{table}
+			\begin{figure}%
+				\centering
+				\includegraphics[width=.7\columnwidth]{./../images/fitnessplot.png}%
+				\caption{Fitness plot of best run in best average case}%
+				\label{fig:best}%
+			\end{figure}
 \section{Modified tracker scenario}
+	\subsection{The change}
+		In this task we decisded to change the height and width of the tracker arena. The original size of the arena was 30 wide and 15 high, we changed these to 50 wide and 25 high. No other parameters was changed during this phase of the project. 
+	\subsection{Result}
+		The changed made resulted in a lower fitness overall. In the original arena we had a best average of 51.11, this was reduced to 45.96 in the big arena(extracted from reruns of top 20). The overall best result from a single run was also greatly reduced, in the original arena we found 68.88 as the best, while in the big arena 63.44 was the best found(extracted from 1012 different run on each arena). 
+		
+		Though the fitness function was not changed we see a change in both the average best, and single best. In both cases about 5 in fitness was lost. Based on the different "`personalities "` we have seen from our trackers, we believe that there can be several explanations to why it yields a lower fitness overall, with the width of the arena being the greatest influential factor. In many cases we have seen trackers that don't utilize their full speed range, many of them prefers keeping a relative low speed at around 1-2. In some cases this may mean that the tracker never discovers the object before it has allready landed. But due to the ratio between the height and width being the same as in the original scenario, we don't believe this to be the deciding factor. In order to find an explanation to the lowered fitness we tried looking at how the tracker experienced the environment, the main difference we found between the two arenas was the amount of timesteps the tracker would go without seeing an object. This long exposure to the same input combined with the neural network's memory could cause it to skip the smallest object(1s and 2s) since it doesn't manage to deaccelerate to a standstill before it has passed the object. 
+		
 \section{Modified topology}
+	
 \section{Modified variable ranges}
 \section{In depth}
 \section{Appendix}

@@ -39,7 +39,7 @@ public class App {
         properties.setProperty("core.strategy.parent.mechanism", SigmaScalingMechanism.class.getName());
         properties.setProperty("tournament.size", "75");
         properties.setProperty("tournament.eps", "0.1");
-        properties.setProperty("core.individual.crossover_rate", "0.3");
+        properties.setProperty("core.individual.crossover_rate", "0.1");
         properties.setProperty("core.individual.mutation_rate", "0.1");
         
         if (args != null && args.length == 7) {

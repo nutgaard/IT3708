@@ -23,7 +23,7 @@ public class MultiRunner {
 
     public static final List<Runnable> queue = Collections.synchronizedList(new LinkedList<Runnable>());
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         String[] mechanism = {//FitnessProportionateMechanism.class.getName(),
             SigmaScalingMechanism.class.getName(),
@@ -56,7 +56,11 @@ public class MultiRunner {
                                 queue.add(new Runnable() {
                                     public void run() {
                                         double t = System.currentTimeMillis();
-                                        new App().main(input);
+                                        try {
+                                            new App().main(input);
+                                        } catch (InterruptedException ex) {
+                                            Logger.getLogger(MultiRunner.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
                                         System.out.println("Time: " + (System.currentTimeMillis() - t));
                                     }
                                 });
@@ -76,7 +80,11 @@ public class MultiRunner {
                         queue.add(new Runnable() {
                             public void run() {
                                 double t = System.currentTimeMillis();
-                                new App().main(input);
+                                try {
+                                    new App().main(input);
+                                } catch (InterruptedException ex) {
+                                    Logger.getLogger(MultiRunner.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 System.out.println("Time: " + (System.currentTimeMillis() - t));
                             }
                         });

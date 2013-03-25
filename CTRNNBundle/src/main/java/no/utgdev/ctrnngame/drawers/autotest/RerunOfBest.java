@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import no.utgdev.ctrnngame.App;
@@ -148,7 +150,11 @@ public class RerunOfBest {
 
         public void run() {
             double lastTime = System.currentTimeMillis();
-            App.main(c.input);
+            try {
+                App.main(c.input);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(RerunOfBest.class.getName()).log(Level.SEVERE, null, ex);
+            }
             System.out.println("TimeStep: " + (System.currentTimeMillis() - lastTime));
             File[] images = dir.getParentFile().listFiles(new FilenameFilter() {
                 public boolean accept(File dir, String name) {

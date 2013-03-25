@@ -16,7 +16,7 @@ import no.utgdev.ann.core.neuron.chain.link.Summation;
  */
 public class ANNBuilder {
 
-    public static final boolean modifiedTopology = true;
+    public static final boolean modifiedTopology = false;
 
     public static StructuredANN build(double[] data) {
         if (modifiedTopology) {

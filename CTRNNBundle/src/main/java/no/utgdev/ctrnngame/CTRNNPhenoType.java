@@ -4,7 +4,7 @@
  */
 package no.utgdev.ctrnngame;
 
-import no.utgdev.ann.core.structured.StructuredANN;
+import no.utgdev.ann.core.StructuredANN;
 import no.utgdev.ga.core.population.PhenoType;
 
 /**

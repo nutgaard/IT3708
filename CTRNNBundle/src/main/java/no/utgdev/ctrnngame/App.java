@@ -8,12 +8,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import no.utgdev.ann.core.structured.StructuredANN;
+import no.utgdev.ann.core.StructuredANN;
 import no.utgdev.ga.core.GALoop;
 import no.utgdev.ga.core.fitness.FitnessMap;
 import no.utgdev.ga.core.selection.mechanism.AllMechanism;
 import no.utgdev.ga.core.selection.mechanism.SigmaScalingMechanism;
-import no.utgdev.ga.core.selection.mechanism.TournamentSelectionMechanism;
 import no.utgdev.ga.core.selection.protocol.AllProtocol;
 import no.utgdev.ga.core.selection.protocol.GenerationalMixing;
 import no.utgdev.trackergame.World;

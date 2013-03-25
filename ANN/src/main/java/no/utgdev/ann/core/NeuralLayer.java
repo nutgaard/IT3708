@@ -2,10 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.utgdev.ann.core.structured;
+package no.utgdev.ann.core;
 
-import no.utgdev.ann.core.structured.AbstractNeuron;
 import java.util.List;
+import no.utgdev.ann.core.neuron.Neuron;
+import no.utgdev.ann.core.neuron.Neuron;
 
 /**
  *
@@ -17,25 +18,25 @@ public class NeuralLayer {
 
         INPUT, HIDDEN, OUTPUT;
     }
-    protected final List<? extends AbstractNeuron> neurons;
+    protected final List<Neuron> neurons;
 
-    public NeuralLayer(List<? extends AbstractNeuron> neurons) {
+    public NeuralLayer(List<Neuron> neurons) {
         this.neurons = neurons;
     }
 
     public void update() {
-        for (AbstractNeuron an : neurons) {
+        for (Neuron an : neurons) {
             an.update();
         }
     }
 
     public void sync() {
-        for (AbstractNeuron an : neurons) {
+        for (Neuron an : neurons) {
             an.sync();
         }
     }
 
-    public List<? extends AbstractNeuron> getNeurons() {
+    public List<Neuron> getNeurons() {
         return this.neurons;
     }
 

@@ -8,6 +8,7 @@ target/
 *.pdf
 *.toc
 *.dvi
+*.jar
 .settings/
 bin/
 backup/
@@ -15,7 +16,10 @@ backup/
 .classpath
 deliverables/
 CTRNNBundle/images
+CTRNNBundle/CTRNNBundleImages
 /Concurrency/nbproject/private/
-/EPuck/controllers/MySwarmController/MySwarmController/nbproject/private/
+/EPuck/controllers/MySwarmController/nbproject/
+/EPuck/controllers/MySwarmController/MySwarmController/lib/
 /EPuck/controllers/MySwarmController/build/
 /EPuck/controllers/MySwarmController/dist/
+*/.svn/*

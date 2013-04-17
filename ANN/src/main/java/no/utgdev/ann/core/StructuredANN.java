@@ -2,17 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.utgdev.ann.core.structured;
+package no.utgdev.ann.core;
 
 import java.util.LinkedList;
 import java.util.List;
-import no.utgdev.ann.core.INeuralNet;
+import no.utgdev.ann.core.neuron.Neuron;
 
 /**
  *
  * @author Nicklas
  */
-public class StructuredANN implements INeuralNet {
+public class StructuredANN implements NeuralNet {
 
     private NeuralLayer inputLayer;
     private List<NeuralLayer> hiddenLayers;
@@ -44,7 +44,7 @@ public class StructuredANN implements INeuralNet {
         }
         //Setting up input and recalculating inputlayer
         int inputInd = 0;
-        for (AbstractNeuron an : inputLayer.getNeurons()){
+        for (Neuron an : inputLayer.getNeurons()){
             an.setStaticInput(input[inputInd++]);
             an.update();
             an.sync();
@@ -64,8 +64,8 @@ public class StructuredANN implements INeuralNet {
         //Assemble outputvector
         double[] output = new double[outputLayer.size()];
         int outputInd = 0;
-        for (AbstractNeuron an : outputLayer.getNeurons()) {
-            output[outputInd++] = an.getOutput();
+        for (Neuron an : outputLayer.getNeurons()) {
+            output[outputInd++] = an.getOutputValue();
         }
         return output;
     }

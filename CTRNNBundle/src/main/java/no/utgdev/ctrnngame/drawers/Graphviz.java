@@ -8,14 +8,11 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Stack;
-import no.utgdev.ann.core.structured.AbstractNeuron;
-import no.utgdev.ann.core.structured.NeuralLayer;
-import no.utgdev.ann.core.structured.StructuredANN;
-import no.utgdev.ann.core.structured.Synapse;
-import org.jgraph.graph.DefaultEdge;
-import org.jgrapht.ListenableGraph;
-import org.jgrapht.graph.ListenableDirectedGraph;
+
+import no.utgdev.ann.core.NeuralLayer;
+import no.utgdev.ann.core.StructuredANN;
+import no.utgdev.ann.core.Synapse;
+import no.utgdev.ann.core.neuron.Neuron;
 
 /*
  * To change this template, choose Tools | Templates and open the template in
@@ -48,8 +45,8 @@ public class Graphviz {
         StringBuilder structure = new StringBuilder();
         StringBuilder connections = new StringBuilder();
         
-        Map<AbstractNeuron, String> neuronNames = new HashMap<AbstractNeuron, String>();
-        List<AbstractNeuron> neuronList = new LinkedList<AbstractNeuron>();
+        Map<Neuron, String> neuronNames = new HashMap<Neuron, String>();
+        List<Neuron> neuronList = new LinkedList<Neuron>();
         int intName = 1;
         String neuronName = null;
 
@@ -57,8 +54,8 @@ public class Graphviz {
         int layerCount = 0;
         for (NeuralLayer nl : layers) {
             structure.append("subgraph cluster_").append(layerCount++).append("{\n");
-            List<? extends AbstractNeuron> neurons = nl.getNeurons();
-            for (AbstractNeuron neuron : neurons) {
+            List<? extends Neuron> neurons = nl.getNeurons();
+            for (Neuron neuron : neurons) {
                 neuronName = String.valueOf(intName++);
                 neuronList.add(neuron);
                 neuronNames.put(neuron, neuronName);
@@ -67,12 +64,12 @@ public class Graphviz {
             structure.append("}\n");
         }
         String idString;
-        for (AbstractNeuron an : neuronList) {
+        for (Neuron an : neuronList) {
             idString = neuronNames.get(an);
         }
         String neuronNameFrom, neuronNameTo;
         DecimalFormat formatter = new DecimalFormat("##.###");
-        for (AbstractNeuron an : neuronList) {
+        for (Neuron an : neuronList) {
             neuronNameTo = neuronNames.get(an);
             for (Synapse s : an.getInputSynapses()) {
                 neuronNameFrom = neuronNames.get(s.getFrom());

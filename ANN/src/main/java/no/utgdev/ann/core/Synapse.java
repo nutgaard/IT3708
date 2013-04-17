@@ -2,33 +2,33 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.utgdev.ann.core.structured;
+package no.utgdev.ann.core;
 
-import no.utgdev.ann.core.structured.AbstractNeuron;
+import no.utgdev.ann.core.neuron.Neuron;
 
 /**
  *
  * @author Nicklas
  */
 public class Synapse {
-    protected final AbstractNeuron from, to;
+    protected final Neuron from, to;
     protected double weight;
 
-    public Synapse(AbstractNeuron from, AbstractNeuron to) {
+    public Synapse(Neuron from, Neuron to) {
         this(from, to, 1.0);
     }
 
-    public Synapse(AbstractNeuron from, AbstractNeuron to, double weight) {
+    public Synapse(Neuron from, Neuron to, double weight) {
         this.from = from;
         this.to = to;
         this.weight = weight;
     }
 
-    public AbstractNeuron getFrom() {
+    public Neuron getFrom() {
         return from;
     }
 
-    public AbstractNeuron getTo() {
+    public Neuron getTo() {
         return to;
     }
 
@@ -39,6 +39,4 @@ public class Synapse {
     public void setWeight(double weight) {
         this.weight = weight;
     }
-    
-    
 }

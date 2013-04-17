@@ -6,7 +6,7 @@ package no.utgdev.ctrnngame;
 
 import java.util.Arrays;
 import java.util.Scanner;
-import no.utgdev.ann.core.structured.StructuredANN;
+import no.utgdev.ann.core.StructuredANN;
 import no.utgdev.trackergame.TrackController;
 import no.utgdev.trackergame.World;
 

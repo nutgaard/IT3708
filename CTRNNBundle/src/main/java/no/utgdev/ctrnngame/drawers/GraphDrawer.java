@@ -6,17 +6,7 @@ package no.utgdev.ctrnngame.drawers;
 
 import java.awt.Color;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.RandomAccess;
-import no.utgdev.ann.core.structured.AbstractNeuron;
-import no.utgdev.ann.core.structured.NeuralLayer;
-import no.utgdev.ann.core.structured.StructuredANN;
-import no.utgdev.ann.core.structured.Synapse;
+import no.utgdev.ann.core.StructuredANN;
 import no.utgdev.ctrnngame.ANNBuilder;
 
 /**

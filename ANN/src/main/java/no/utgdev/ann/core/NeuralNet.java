@@ -8,6 +8,6 @@ package no.utgdev.ann.core;
  *
  * @author Nicklas
  */
-public interface INeuralNet {
+public interface NeuralNet {
     public double[] update(double[] input);
 }

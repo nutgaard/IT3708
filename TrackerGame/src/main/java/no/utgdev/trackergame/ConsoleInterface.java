@@ -20,6 +20,7 @@ public class ConsoleInterface implements TrackController {
         this.scanner = new Scanner(System.in);
     }
 
+
     public int move(boolean[] shadows, int objectHeight) {
         printWorld();
         return scanner.nextInt();

@@ -13,7 +13,6 @@ import no.utgdev.ctrnngame.App;
 import no.utgdev.ga.core.selection.mechanism.SigmaScalingMechanism;
 import no.utgdev.ga.core.selection.mechanism.TournamentSelectionMechanism;
 import no.utgdev.ga.core.selection.protocol.GenerationalMixing;
-import sun.awt.windows.WWindowPeer;
 
 /**
  *
@@ -57,9 +56,9 @@ public class MultiRunner {
                                     public void run() {
                                         double t = System.currentTimeMillis();
                                         try {
-                                            new App().main(input);
+                                            App.main(input);
                                         } catch (InterruptedException ex) {
-                                            Logger.getLogger(MultiRunner.class.getName()).log(Level.SEVERE, null, ex);
+                                            Logger.getLogger(RerunOfBest.class.getName()).log(Level.SEVERE, null, ex);
                                         }
                                         System.out.println("Time: " + (System.currentTimeMillis() - t));
                                     }
@@ -81,9 +80,9 @@ public class MultiRunner {
                             public void run() {
                                 double t = System.currentTimeMillis();
                                 try {
-                                    new App().main(input);
+                                    App.main(input);
                                 } catch (InterruptedException ex) {
-                                    Logger.getLogger(MultiRunner.class.getName()).log(Level.SEVERE, null, ex);
+                                    Logger.getLogger(RerunOfBest.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                                 System.out.println("Time: " + (System.currentTimeMillis() - t));
                             }
@@ -92,7 +91,7 @@ public class MultiRunner {
                 }
             }
         }
-        for (Runner r : runners){
+        for (Runner r : runners) {
             r.breaker();
         }
     }
@@ -108,7 +107,7 @@ public class MultiRunner {
             outer:
             while (run) {
                 while (queue.isEmpty()) {
-                    if (breaker){
+                    if (breaker) {
                         break outer;
                     }
                     Thread.yield();
@@ -121,6 +120,7 @@ public class MultiRunner {
         public void halt() {
             this.run = false;
         }
+
         public void breaker() {
             this.breaker = true;
         }

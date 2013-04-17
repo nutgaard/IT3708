@@ -31,12 +31,12 @@ public class RerunOfBest {
 
     public static final List<Runnable> queue = Collections.synchronizedList(new LinkedList<Runnable>());
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         final int runPerCase = 20, retainBestCount = 20;
         run(runPerCase, retainBestCount);
     }
 
-    private static void run(int runs, int retain) {
+    private static void run(int runs, int retain) throws Exception {
         final File dir = new File("./images/catchavoid-nopenalty-modified/");
         final File[] typeFiltered = dir.listFiles(new FilenameFilter() {
             Pattern p = Pattern.compile("([\\d\\.]*?)-(\\d*?)gen-(\\d*?)pop-([\\d\\.]*?)tour-([\\d\\.]*?)eps-([\\d\\.]*?)cr-([\\d\\.]*?)mr-(\\w*)-(\\w*)-?\\.png");

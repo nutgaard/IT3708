@@ -48,7 +48,7 @@ import org.jfree.data.xy.XYSeriesCollection;
  */
 public class Plotting extends StatisticsHandler {
     List<Pair<PopulationParser, XYSeries>> activeParsers;
-//    private JFrame frame;
+    private JFrame frame;
     private ChartPanel panel;
     private XYSeriesCollection dataset;
     private JFreeChart chart;
@@ -58,8 +58,8 @@ public class Plotting extends StatisticsHandler {
 
     public Plotting(GALoop ga) {
         super(ga);
-//        frame = new JFrame("Plotting");
-//        frame.setPreferredSize(new Dimension(800, 800));
+        frame = new JFrame("Plotting");
+        frame.setPreferredSize(new Dimension(800, 800));
         this.activeParsers = new LinkedList<Pair<PopulationParser, XYSeries>>();
         this.dataset = new XYSeriesCollection();
         this.chart = ChartFactory.createXYLineChart(
@@ -90,11 +90,11 @@ public class Plotting extends StatisticsHandler {
                 dataset.addSeries(this.series[i]);
             }
         }
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.add(panel);
-//        frame.pack();
-//        frame.setLocationByPlatform(true);
-//        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        frame.pack();
+        frame.setLocationByPlatform(true);
+        frame.setVisible(true);
     }
 
     public void generation(int genNo, Population population, FitnessHandler fitnessHandler) {

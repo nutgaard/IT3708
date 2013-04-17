@@ -13,7 +13,6 @@ import no.utgdev.ctrnngame.App;
 import no.utgdev.ga.core.selection.mechanism.SigmaScalingMechanism;
 import no.utgdev.ga.core.selection.mechanism.TournamentSelectionMechanism;
 import no.utgdev.ga.core.selection.protocol.GenerationalMixing;
-import sun.awt.windows.WWindowPeer;
 
 /**
  *
@@ -23,7 +22,7 @@ public class MultiRunner {
 
     public static final List<Runnable> queue = Collections.synchronizedList(new LinkedList<Runnable>());
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         String[] mechanism = {//FitnessProportionateMechanism.class.getName(),
             SigmaScalingMechanism.class.getName(),
@@ -56,7 +55,11 @@ public class MultiRunner {
                                 queue.add(new Runnable() {
                                     public void run() {
                                         double t = System.currentTimeMillis();
-                                        new App().main(input);
+                                        try {
+                                            App.main(input);
+                                        } catch (InterruptedException ex) {
+                                            Logger.getLogger(RerunOfBest.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
                                         System.out.println("Time: " + (System.currentTimeMillis() - t));
                                     }
                                 });
@@ -76,7 +79,11 @@ public class MultiRunner {
                         queue.add(new Runnable() {
                             public void run() {
                                 double t = System.currentTimeMillis();
-                                new App().main(input);
+                                try {
+                                    App.main(input);
+                                } catch (InterruptedException ex) {
+                                    Logger.getLogger(RerunOfBest.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 System.out.println("Time: " + (System.currentTimeMillis() - t));
                             }
                         });
@@ -84,7 +91,7 @@ public class MultiRunner {
                 }
             }
         }
-        for (Runner r : runners){
+        for (Runner r : runners) {
             r.breaker();
         }
     }
@@ -100,7 +107,7 @@ public class MultiRunner {
             outer:
             while (run) {
                 while (queue.isEmpty()) {
-                    if (breaker){
+                    if (breaker) {
                         break outer;
                     }
                     Thread.yield();
@@ -113,6 +120,7 @@ public class MultiRunner {
         public void halt() {
             this.run = false;
         }
+
         public void breaker() {
             this.breaker = true;
         }

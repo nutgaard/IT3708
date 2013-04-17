@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import no.utgdev.ctrnngame.App;
@@ -29,12 +31,12 @@ public class RerunOfBest {
 
     public static final List<Runnable> queue = Collections.synchronizedList(new LinkedList<Runnable>());
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         final int runPerCase = 20, retainBestCount = 20;
         run(runPerCase, retainBestCount);
     }
 
-    private static void run(int runs, int retain) {
+    private static void run(int runs, int retain) throws Exception {
         final File dir = new File("./images/catchavoid-nopenalty-modified/");
         final File[] typeFiltered = dir.listFiles(new FilenameFilter() {
             Pattern p = Pattern.compile("([\\d\\.]*?)-(\\d*?)gen-(\\d*?)pop-([\\d\\.]*?)tour-([\\d\\.]*?)eps-([\\d\\.]*?)cr-([\\d\\.]*?)mr-(\\w*)-(\\w*)-?\\.png");
@@ -148,7 +150,11 @@ public class RerunOfBest {
 
         public void run() {
             double lastTime = System.currentTimeMillis();
-            App.main(c.input);
+            try {
+                App.main(c.input);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(RerunOfBest.class.getName()).log(Level.SEVERE, null, ex);
+            }
             System.out.println("TimeStep: " + (System.currentTimeMillis() - lastTime));
             File[] images = dir.getParentFile().listFiles(new FilenameFilter() {
                 public boolean accept(File dir, String name) {

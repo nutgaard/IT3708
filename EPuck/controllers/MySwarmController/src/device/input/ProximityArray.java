@@ -32,21 +32,26 @@ public class ProximityArray {
     public Pair<Integer, Double> getSmallestValueAndIndex() {
         double smallest = getDistanceSensorValue(0);
         int index = 0;
+        int indexCounter = 0;
         for (DistanceSensor ds : distances) {
             if (ds.getValue() < smallest) {
                 smallest = ds.getValue();
-                
+                index = indexCounter;
             }
+            indexCounter++;
         }
         return new Pair<>(index, smallest);
     }
     public Pair<Integer, Double> getBiggestValueAndIndex() {
         double biggest = getDistanceSensorValue(0);
         int index = 0;
+        int indexCounter = 0;
         for (DistanceSensor ds : distances) {
             if (ds.getValue() > biggest) {
                 biggest = ds.getValue();
+                index = indexCounter;
             }
+            indexCounter++;
         }
         return new Pair<>(index, biggest);
     }

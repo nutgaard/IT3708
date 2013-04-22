@@ -32,21 +32,26 @@ public class LightArray {
     public Pair<Integer, Double> getSmallestValueAndIndex() {
         double smallest = getLightSensorValue(0);
         int index = 0;
+        int indexCounter = 0;
         for (LightSensor ds : lights) {
             if (ds.getValue() < smallest) {
                 smallest = ds.getValue();
-                
+                index = indexCounter;
             }
+            indexCounter++;
         }
         return new Pair<>(index, smallest);
     }
     public Pair<Integer, Double> getBiggestValueAndIndex() {
         double biggest = getLightSensorValue(0);
         int index = 0;
+        int indexCounter = 0;
         for (LightSensor ds : lights) {
             if (ds.getValue() > biggest) {
                 biggest = ds.getValue();
+                index = indexCounter;
             }
+            indexCounter++;
         }
         return new Pair<>(index, biggest);
     }

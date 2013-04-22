@@ -53,7 +53,7 @@ public class Wheels extends DifferentialWheels {
     public void move(double speed, int duration) {
         double s = Math.max(-1.0, Math.min(1.0, speed));
         setWheelSpeed(speed, speed);
-        step(duration);
+//        step(duration);
     }
     public void moveWheels(double leftWheelSpeed, double rightWheelSpeed) {
         moveWheels(leftWheelSpeed, rightWheelSpeed, 1);
@@ -62,7 +62,7 @@ public class Wheels extends DifferentialWheels {
         double ls = Math.max(-1.0, Math.min(1.0, leftWheelSpeed));
         double rs = Math.max(-1.0, Math.min(1.0, rightWheelSpeed));
         setWheelSpeed(ls, rs);
-        step(duration);
+//        step(duration);
     }
     public void setWheelSpeed(double leftWheelSpeed, double rightWheelSpeed) {
         double ms = tempo*maxWheelSpeed;
@@ -95,7 +95,7 @@ public class Wheels extends DifferentialWheels {
         }else {
             setWheelSpeed(-s, s);
         }
-        step(duration);
+//        step(duration);
     }
     public void spinAngle(double angle) {
         double a = Math.abs(angle)*Math.PI/180.0;
@@ -117,6 +117,6 @@ public class Wheels extends DifferentialWheels {
     }
     public void stop() {
         setWheelSpeed(0, 0);
-        step(timestep);
+//        step(timestep);
     }
 }

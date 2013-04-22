@@ -4,6 +4,10 @@
  */
 package brooks;
 
+import brooks.impl.BraitenburgAvoidance;
+import brooks.impl.ConvergeAndPush;
+import brooks.impl.StagnationAvoidance;
+import brooks.thesis.Search;
 import com.cyberbotics.webots.controller.Robot;
 import device.ResponseDevices;
 import device.SensoryInputs;
@@ -27,13 +31,14 @@ public class ControlSystem {
         input = new SensoryInputs(new ProximityArray(robot, 8), new LightArray(robot, 8));
         output = new ResponseDevices(new LEDArray(robot, 10), new Wheels(robot));
         queue = new LinkedList<>();
-        queue.add(new TowardsTheLight());
-        queue.add(new BraitenburgAvoidance());
+        queue.add(new StagnationAvoidance());
+        queue.add(new ConvergeAndPush());
+        queue.add(new Search());
     }
     public void update() {
         for (Behaviour b : queue) {
-            if (b.trigger(input, output)){
-                System.out.println("Using: "+b);
+            boolean trigger = b.trigger(input, output);
+            if (trigger){
                 b.execute(input, output);
                 break;
             }

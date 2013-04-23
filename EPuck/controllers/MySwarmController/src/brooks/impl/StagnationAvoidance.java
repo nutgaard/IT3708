@@ -47,40 +47,31 @@ public class StagnationAvoidance implements Behaviour {
         if (isRepositioningActived()) {
             return true;
         } else if (isNotPushing(smallestReading, input, devices)) {
-            System.out.println("Resetting pushcounter, was not pushing");
             pushCounter = 0;
             return false;
-        } 
-        else if (isNotCorrectlyOrientet(smallestReading, input, devices)) {
-            System.out.println("Resetting pushcounter, orientation mismatch: " + smallestReading.s + " " + smallestReading.t);
-//            pushCounter = 0;
+        } else if (isNotCorrectlyOrientet(smallestReading, input, devices)) {
             return false;
-        }
-        else {
+        } else {
             pushCounter++;
             if (pushCounter > pushCounterLimit) {
                 int numberOfNeighbours = getNumberOfNeightbours(input, devices);
                 if (numberOfNeighbours >= 2) {
-                    System.out.println("Has two neighbours, staying");
                     pushCounter = 0;
                     return false;
                 } else if (numberOfNeighbours == 1) {
                     boolean b = cointossDecision(0.5);
-                    System.out.println("Has one neightbours, cointoss said: " + b);
                     if (!b) {
                         pushCounter = 0;
                     }
                     return b;
                 }
             }
-            System.out.println("PushCOunter: "+pushCounter);
             return (pushCounter > pushCounterLimit);
         }
     }
 
     @Override
     public void execute(SensoryInputs input, ResponseDevices devices) {
-        System.out.println("Resetting pushcounter, executing avoidance");
         pushCounter = 0;
 
         if (repositioningState == RepositioningState.NONE) {
@@ -122,7 +113,7 @@ public class StagnationAvoidance implements Behaviour {
     private boolean isNotCorrectlyOrientet(Pair<Integer, Double> smallestReading, SensoryInputs input, ResponseDevices devices) {
         ProximityArray proximity = input.getProximityArray();
         double frontalDiff = proximity.getDistanceSensorValue(0) - proximity.getDistanceSensorValue(7);
-        
+
         return Math.abs(frontalDiff) > pushOrientationThreshold;
     }
 
@@ -146,7 +137,6 @@ public class StagnationAvoidance implements Behaviour {
     }
 
     private boolean isNotPushing(Pair<Integer, Double> smallestReading, SensoryInputs input, ResponseDevices devices) {
-//        return (input.getProximityArray().getBiggestValueAndIndex().t < 3400);
         return smallestReading.t > isPushingThreshold;
     }
 

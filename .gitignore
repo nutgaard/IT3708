@@ -9,6 +9,7 @@ target/
 *.toc
 *.dvi
 *.jar
+*.tcp
 .settings/
 bin/
 backup/

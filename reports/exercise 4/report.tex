@@ -1,0 +1,48 @@
+	\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{multicol}
+\usepackage{url}
+
+\restylefloat{figure}
+	\title{IT3708 - Exercise 4}
+\author{
+        Eirik Hammerstad \& Nicklas Utgaard
+}
+				
+\date{\today}
+\begin{document}
+\maketitle
+\section{Part A}
+	\subsection{System overview}	
+		Standard architectural description + diagrams
+		Change to world attenuation from 1 0 0 to 0 0 25
+		
+
+	\subsection{Inital implementation}
+		Den klarer det...
+		uforventet stacking av epucks funker greit. (De står bak og dytter de som er nærmere boksen) (Implemented braitenberg search, stupidConvergeAndPush and stupidStagnationAvoidance)
+
+\section{Part B}
+	\subsection{Areas of improvement}
+		search: braitenburg sucks, gets stuck in corners at some times. 
+		convergeAndPush: Spends a lot of time pushing when not aligned with
+	the box. Move alignment from stagnation to push. 
+		stagnation: Only looks directly to its side when deciding if it is going to 
+	stay or not. This combined with not allways being align result in the box being counted as a neighbour in some occurences. Move alignment from stagnation to push. 
+	Introduce all backwardsfacing sensors as neighboursensor, in order to also find 
+	bot that are standing behind and pushing. 
+		
+	\subsection{Effect of improvements}
+		Done
+		Very well
+
+%\pagebreak
+%\tableofcontents
+%\pagebreak
+
+\end{document}

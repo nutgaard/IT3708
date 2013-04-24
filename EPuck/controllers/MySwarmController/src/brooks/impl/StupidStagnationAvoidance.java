@@ -15,7 +15,7 @@ import utils.Pair;
  *
  * @author Nicklas
  */
-public class StagnationAvoidance implements Behaviour {
+public class StupidStagnationAvoidance implements Behaviour {
 
     public static final int pushOrientationThreshold = 600;
     public static final int pushCounterLimit = 200;
@@ -25,6 +25,8 @@ public class StagnationAvoidance implements Behaviour {
     private RepositioningState repositioningState = RepositioningState.NONE;
     private boolean turnLeft = true;
     private int stateCounter = 0;
+    private int orientationCounterLimit = 30;
+    private int orientationCounter = 0;
 
     @Override
     public boolean trigger(SensoryInputs input, ResponseDevices devices) {
@@ -35,7 +37,8 @@ public class StagnationAvoidance implements Behaviour {
             pushCounter = 0;
             return false;
         } else if (isNotCorrectlyOrientet(smallestReading, input, devices)) {
-            return false;
+            orientationCounter++;
+            return (orientationCounter > orientationCounterLimit);
         } else {
             pushCounter++;
             if (pushCounter > pushCounterLimit) {
@@ -58,12 +61,35 @@ public class StagnationAvoidance implements Behaviour {
     @Override
     public void execute(SensoryInputs input, ResponseDevices devices) {
         pushCounter = 0;
-
-        if (repositioningState == RepositioningState.NONE) {
-            turnLeft = cointossDecision(0.5);
-            repositioningState = RepositioningState.REVERSE;
+        orientationCounter = 0;
+        if (isNotCorrectlyOrientet(null, input, devices) && !isRepositioningActived()) {
+            ProximityArray proximity = input.getProximityArray();
+            double frontalDiff = proximity.getDistanceSensorValue(0) - proximity.getDistanceSensorValue(7);
+            alignWithBox(frontalDiff, devices);
+        } else {
+            if (repositioningState == RepositioningState.NONE) {
+                turnLeft = cointossDecision(0.5);
+                repositioningState = RepositioningState.REVERSE;
+            }
+            processRepositioningState(repositioningState, input, devices);
         }
-        processRepositioningState(repositioningState, input, devices);
+    }
+
+    private void alignWithBox(double frontalDiff, ResponseDevices devices) {
+        setSpeedBasedOnAngle(frontalDiff / 10000, devices);
+    }
+
+    private void setSpeedBasedOnAngle(double angle, ResponseDevices devices) {
+        double left = 1.0, right = 1.0;
+        double coef = 3.0;
+        if (angle > 0) {
+            right -= angle * coef;
+            right *= -1;
+        } else {
+            left += angle * coef;
+            left *= -1;
+        }
+        devices.getWheels().moveWheels(left, right);
     }
 
     private void processRepositioningState(RepositioningState state, SensoryInputs input, ResponseDevices devices) {
@@ -110,7 +136,7 @@ public class StagnationAvoidance implements Behaviour {
             input.getProximityArray().getDistanceSensorValue(2),
             input.getProximityArray().getDistanceSensorValue(3),
             input.getProximityArray().getDistanceSensorValue(4),
-            input.getProximityArray().getDistanceSensorValue(5)};
+            input.getProximityArray().getDistanceSensorValue(5),};
         int neighbourCounter = 0;
         for (double proximity : proximitySideAndBack) {
             if (proximity > neightbourProximityThreshold) {

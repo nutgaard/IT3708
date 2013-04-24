@@ -7,6 +7,8 @@ package brooks;
 import brooks.impl.BraitenburgAvoidance;
 import brooks.impl.ConvergeAndPush;
 import brooks.impl.StagnationAvoidance;
+import brooks.impl.StupidConvergeAndPush;
+import brooks.impl.StupidStagnationAvoidance;
 import brooks.thesis.Search;
 import com.cyberbotics.webots.controller.Robot;
 import device.ResponseDevices;
@@ -31,9 +33,18 @@ public class ControlSystem {
         input = new SensoryInputs(new ProximityArray(robot, 8), new LightArray(robot, 8));
         output = new ResponseDevices(new LEDArray(robot, 10), new Wheels(robot));
         queue = new LinkedList<>();
+        
+//        The good setup
         queue.add(new StagnationAvoidance());
         queue.add(new ConvergeAndPush());
         queue.add(new Search());
+        
+//        The bad setup
+//        queue.add(new StupidStagnationAvoidance());
+//        queue.add(new StupidConvergeAndPush());
+//        queue.add(new BraitenburgAvoidance());
+        
+        
     }
     public void update() {
         for (Behaviour b : queue) {

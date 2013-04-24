@@ -22,11 +22,9 @@ public class Wheels extends DifferentialWheels {
     private static final double axleLength = 5.3;
     
     private int timestep;
-    private Robot robot;
 
     public Wheels(Robot robot) {
         super();
-        this.robot = robot;
         this.timestep = (int)robot.getBasicTimeStep();
         enableEncoders(timestep);
     }
@@ -52,7 +50,7 @@ public class Wheels extends DifferentialWheels {
 
     public void move(double speed, int duration) {
         double s = Math.max(-1.0, Math.min(1.0, speed));
-        setWheelSpeed(speed, speed);
+        setWheelSpeed(s, s);
 //        step(duration);
     }
     public void moveWheels(double leftWheelSpeed, double rightWheelSpeed) {

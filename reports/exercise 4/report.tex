@@ -63,7 +63,12 @@ Further is it worth noting that we completed this project with three main iterat
 				It was large inspirered by \textit{epuck\_basic.py}.
 			
 		\subsubsection{Changes to the world}
-			Change to world attenuation from 1 0 0 to 0 0 25
+			The inital settings of the light source caused the epucks to always see the lightsource, additionally the distance to the lightsource seemed
+			to have little impact on the sensor readings. Based on this we decided to change the attenuation of the lightsource from $[1,0,0]$ to $[0,0,25]$.
+			This gave us the desired behaviour of the lightsource, where the epucks did not detect the source from far away and distance did affect the sensor readings.
+			One downside to this change was that in close proximity of the lightsource the sensors would simply yield a zero value for the sensors facing the lightsource.
+			We did however dicide to keep this change throughout the project since this effect gave us an more realistic simulation and provided us with more testing possibilities.
+			
 		
 	\subsection{Inital implementation}
 		Den klarer det...

@@ -73,8 +73,14 @@ Further is it worth noting that we completed this project with three main iterat
 			%without the need to restart manually. The supervisor also provided us with data related to the length of each run and how far the box was pushed.
 		
 	\subsection{Inital implementation}
-		The inital implementation of the control system and behavioural modules 
+		
+		The inital implementation of the control system and behavioural modules focused on getting the control system to work, and just the basics of the modules.
+		We used the trinity of modules proposed in the project description, and implemented them in a simple way. The \textit{Search} module implemented a Braitenberg vehicle,
+		without any means of randomness in the module. The \textit{Retrieval} module was implemented to phases of retrieval, converge and push. 
+		As soon as the sensors picked up light from the lightsensor we aligned the robot such that the front was towards the lightsource and told it to move forwards. 
+		Once close enough to the box it shifts for convergance to pushing, in general this would mean just to keep the forward momentum.
 	
+		
 		Den klarer det...
 		uforventet stacking av epucks funker greit. (De står bak og dytter de som er nærmere boksen) (Implemented braitenberg search, stupidConvergeAndPush and stupidStagnationAvoidance)
 		

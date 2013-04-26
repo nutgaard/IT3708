@@ -110,7 +110,7 @@ non progressive behaviour and finding possible mitigations to these.
 			\shiftline The \textit{Retrieval} modules did work very well with a small number of epucks. Problem did however arise when to many epucks got close together during
 			the pushing phase. The issue came down to alignment with the box, in some cases the epuck lost track of the alignment and instead tryed to align itself against it neighbours. 
 			
-			\shiftline The \textit{StagnationAvoidance} did work as expected without any major issues to be found. The only problem we were able to find was that trying to turn the
+			\shiftline The \textit{StagnationAvoidance} did work as expected without any major issues. The only problem we were able to find was that trying to turn the
 			epuck 90\degree during repositioning would not always be perfect, and hence sending the epuck towards the box with a wrong alignment when it was completed. 
 			
 			\shiftline In order to migitigate the issues we propose adding randomness to the movement provided by the \textit{Search} module. This will allow the epucks to get 
@@ -123,5 +123,26 @@ non progressive behaviour and finding possible mitigations to these.
 			to the sides. This will promote a higher probability of staying the more help a epuck has.
 		
 	\subsection{Effect of improvements}
+		The randomness in the \textit{Search} was not enough to keep keep epucks from getting stuck in corners, it did however solve the problem with epucks getting stuck with eachother.
+		In order to solve the corner problem, we looked at why the epucks did not change direction when approaching a corner. This turned out to be a "`feature"' in braitenberg vehicles, 
+		where when a epuck approaches a corner with a 45\degree angle to the two walls its sensors will always keep similar values on the left and right, thus causing the vehicle 
+		to keep going straight forward. An if-clause was added to the new implementation to detect and avoid this scenario. 
 		
+		\shiftline By moving realignment from \textit{StagnationAvoidance} to \textit{Retrieval} we saw a big improvement in how the epucks behaved. 
+		They would now keep aligned with box almost always. This also made it possible to make small adjustment often while the epuck kept pushing, 
+		instead of stopping the push task to realign. This change also enhanced the "`pushing of pushers"' effect in that it all epucks kept facing in the same direction at all cost. 
+		
+		
+		\shiftline The increase in number of backfacing sensors did however not yield the desired result.
+		We experienced no change in the neighbourhood part of the \textit{StagnationAvoidance} and we still
+		saw cases where a surrounded epuck would decide to reposition, even though a neighbour count of two or more should prohibit this behaviour. 
+		One possible explaination to this could be that epucks do not always make an impact on the distance sensor, or that the sensor has a small
+		field of view and therefore does not recognize epucks slightly of center to the sensor.
+		
+		\shiftline In general we saw an improvement in how fast the epucks was able to move the box from the center to one of the walls. 
+		Our inital implementation varied alot in its time usage, sometimes solving the task in about one minute other times using over eight minutes to move the box.
+		While our final implementation also was prone to variation it showed in general better performance then the previous implementation. 
+		The final implementation had an average time of two minutes to solve the task, which proves a great increase in efficiency compared to the first implementation.
+		
+		\shiftline 
 \end{document}

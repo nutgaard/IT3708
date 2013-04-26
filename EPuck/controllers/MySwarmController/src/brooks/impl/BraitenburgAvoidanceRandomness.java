@@ -28,8 +28,8 @@ public class BraitenburgAvoidanceRandomness implements Behaviour {
         double total = 0;
         if (++moveCounter == moveCounterLimit) {
             moveCounter = 0;
-            left = 3 * Math.random();
-            right = 3 * Math.random();
+            left =  Math.random();
+            right = Math.random();
 //            devices.getWheels().moveWheels(Math.random(), Math.random());
         }
         if (input.getProximityArray().getBiggestValueAndIndex().t > 200) {
@@ -38,9 +38,10 @@ public class BraitenburgAvoidanceRandomness implements Behaviour {
             double sum1 = d[0] + d[1];// + d[2] + d[3];
             double sum2 = d[6] + d[7];// + d[4] + d[5];
             if (d[0] > 500 && d[0] > 500 && d[6] > 500 && d[7] > 500) {
-                sum1 *= 100;
+                sum1 *= -100;
+                sum2 *= -10;
             }
-            total = sum1 + sum2;
+            total = Math.abs(sum1) + Math.abs(sum2);
             left += sum2 / total;
             right += sum1 / total;
         }

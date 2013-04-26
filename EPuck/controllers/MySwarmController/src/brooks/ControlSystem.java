@@ -36,14 +36,14 @@ public class ControlSystem {
         queue = new LinkedList<>();
         
 //        The good setup
-//        queue.add(new StagnationAvoidance());
-//        queue.add(new ConvergeAndPush());
-//        queue.add(new Search());
+        queue.add(new StagnationAvoidance());
+        queue.add(new ConvergeAndPush());
+        queue.add(new Search());
         
 //        The bad setup
-        queue.add(new StupidStagnationAvoidance());
-        queue.add(new StupidConvergeAndPush());
-        queue.add(new BraitenburgAvoidanceRandomness());
+//        queue.add(new StupidStagnationAvoidance());
+//        queue.add(new StupidConvergeAndPush());
+//        queue.add(new BraitenburgAvoidance());
         
         
     }

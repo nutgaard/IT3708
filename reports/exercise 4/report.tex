@@ -40,6 +40,7 @@ non progressive behaviour and finding possible mitigations to these.
 			of the package's internal classes (\textit{LightArray} and \textit{ProximityArray}).
 			
 			\begin{figure}[H]
+				\centering
 				\includegraphics[width=.9\columnwidth]{./../images/brooksArchitecture.png}%
 				\caption{Project architecture}
 				\label{fig:architecture}	
@@ -94,7 +95,7 @@ non progressive behaviour and finding possible mitigations to these.
 			The performance of the box varied alot, given enough time they tid eventually get the box to a wall in some cases. But more often then not did some epucks get stuck, 
 			either in a corner or against another epuck, and the saw a lot of ``fighting'' (alignment towards epuck instead of box). In some cases these issues were resolved, 
 			but we also saw cases were these resulted in complete stagnation of progress. 
-			One unexpected feature of our implementation was that it allowed what we came to call "`pushing of pushers"', that means that in some cases we saw more then three 
+			One unexpected feature of our implementation was that it allowed what we came to call "`pushing of pushers"'(see figure~\ref{fig:pushing} p.~\pageref{fig:pushing}), that means that in some cases we saw more then three 
 			epucks working together on the same side, which resulted in that it was not enough rom for all of them to get close to the box. In this case the epuck would stand behind
 			the three pushing epucks, and push on these instead. 
 				
@@ -108,7 +109,8 @@ non progressive behaviour and finding possible mitigations to these.
 			And in some very rare cases would they get stuck pushing against eachother without seeing the other epuck.
 		
 			\shiftline The \textit{Retrieval} modules did work very well with a small number of epucks. Problem did however arise when to many epucks got close together during
-			the pushing phase. The issue came down to alignment with the box, in some cases the epuck lost track of the alignment and instead tryed to align itself against it neighbours. 
+			the pushing phase. The issue came down to alignment with the box, 
+			in some cases the epuck lost track of the alignment and instead tried to align itself against its neighbours(see figure~\ref{fig:alignment} p.~\pageref{fig:alignment}). 
 			
 			\shiftline The \textit{StagnationAvoidance} did work as expected without any major issues. The only problem we were able to find was that trying to turn the
 			epuck 90\degree during repositioning would not always be perfect, and hence sending the epuck towards the box with a wrong alignment when it was completed. 
@@ -144,5 +146,19 @@ non progressive behaviour and finding possible mitigations to these.
 		While our final implementation also was prone to variation it showed in general better performance then the previous implementation. 
 		The final implementation had an average time of two minutes to solve the task, which proves a great increase in efficiency compared to the first implementation.
 		
-		\shiftline 
+\section{Figures}
+	More figures can be seen in the zip file delivered. 
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=.8\columnwidth]{./images/firstIterationImplementationAlignmentIssue.png}%
+		\caption{First iteration alignment issue}
+		\label{fig:alignment}	
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=.8\columnwidth]{./images/finalImplementationCompletePushingOfPushers.png}%
+		\caption{"`Pushing of pushers"' effect}
+		\label{fig:pushing}	
+	\end{figure}
 \end{document}

@@ -81,7 +81,7 @@ public class StupidStagnationAvoidance implements Behaviour {
 
     private void setSpeedBasedOnAngle(double angle, ResponseDevices devices) {
         double left = 1.0, right = 1.0;
-        double coef = 3.0;
+        double coef = 5.0;
         if (angle > 0) {
             right -= angle * coef;
             right *= -1;
@@ -89,6 +89,7 @@ public class StupidStagnationAvoidance implements Behaviour {
             left += angle * coef;
             left *= -1;
         }
+        System.out.println("Aligning: "+left+" "+right);
         devices.getWheels().moveWheels(left, right);
     }
 

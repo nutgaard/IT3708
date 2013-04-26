@@ -11,6 +11,7 @@
 }
 
 \newcommand{\shiftline}[0]{\hfill\newline\noindent}
+\newcommand{\degree}[0]{\ensuremath{^\circ}}
 
 \date{\today}
 \begin{document}
@@ -74,13 +75,33 @@ Further is it worth noting that we completed this project with three main iterat
 		
 	\subsection{Inital implementation}
 		The inital implementation of the control system and behavioural modules focused on getting the control system to work, and just the basics of the modules.
-		We used the trinity of modules proposed in the project description, and implemented them in a simple way. The \textit{Search} module implemented a Braitenberg vehicle,
-		without any means of randomness in the module. The \textit{Retrieval} module was implemented to phases of retrieval, converge and push. 
-		As soon as the sensors picked up light from the lightsensor we aligned the robot such that the front was towards the lightsource and told it to move forwards. 
-		Once close enough to the box it shifts for convergance to pushing, in general this would mean just to keep the forward momentum.
-	
+		We used the trinity of modules proposed in the project description, and implemented them in a simple way. 
 		
-		Den klarer det...
+		\shiftline The \textit{Search} module implemented a Braitenberg vehicle, without any means of randomness in the module. 
+		
+		\shiftline The \textit{Retrieval} module was implemented to phases of retrieval, converge and push. 
+			As soon as the sensors picked up light from the lightsensor we aligned the robot such that the front was towards the lightsource and told it to move forwards. 
+			Once close enough to the box it shifts for convergance to pushing, in this case it is just trying to keep the forward momentum.
+	
+		\shiftline The last module implemented was the \textit{StagnationAvoidance}, this module was inspired by the provided \textit{C} code to a large degree, 
+		in that we kept realignment and repositioning tasks. 
+		We did however use our own implementation of the tasks in order to keep it simple. 
+		
+		\subsubsection{Issues with implementation}
+			With this inital implementation we identified several issues that needed to be adressed. 
+			The \textit{Search} module did in general do what it was supposed to do, we did however find cases where the epucks got stuck in corners. 
+			And in some very rare cases would they get stuck pushing against eachother without seeing the other epuck.
+		
+			\shiftline The \textit{Retrieval} modules did work very well with a small number of epucks. Problem did however arise when to many epucks got close together during
+			the pushing phase. The issue came down to alignment with the box, in some cases the epuck lost track of the alignment and instead tryed to align itself against it neighbours. 
+			
+			\shiftline The \textit{StagnationAvoidance} did work as expected without any major issues to be found. The only problem we were able to find was that trying to turn the
+			epuck 90\degree during repositioning would not always be perfect, and hence sending the epuck towards the box with a wrong alignment when it was completed. 
+			
+		\subsubsection{Performance and issue mitigation}
+			The performance of the box varied alot, given enough time they tid eventually get the box to a wall in some cases. But more often then not did some epucks get stuck, 
+			either in a corner or against another epuck, and the saw a lot of ``fighting'' (alignment towards epuck instead of box). 
+		
 		uforventet stacking av epucks funker greit. (De står bak og dytter de som er nærmere boksen) (Implemented braitenberg search, stupidConvergeAndPush and stupidStagnationAvoidance)
 		
 		

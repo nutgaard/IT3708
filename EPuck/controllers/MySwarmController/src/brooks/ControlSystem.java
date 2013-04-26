@@ -5,6 +5,7 @@
 package brooks;
 
 import brooks.impl.BraitenburgAvoidance;
+import brooks.impl.BraitenburgAvoidanceRandomness;
 import brooks.impl.ConvergeAndPush;
 import brooks.impl.StagnationAvoidance;
 import brooks.impl.StupidConvergeAndPush;
@@ -42,7 +43,7 @@ public class ControlSystem {
 //        The bad setup
         queue.add(new StupidStagnationAvoidance());
         queue.add(new StupidConvergeAndPush());
-        queue.add(new BraitenburgAvoidance());
+        queue.add(new BraitenburgAvoidanceRandomness());
         
         
     }

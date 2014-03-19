@@ -7,6 +7,7 @@ package brooks.impl;
 import brooks.Behaviour;
 import device.ResponseDevices;
 import device.SensoryInputs;
+import device.input.LightArray;
 import device.input.ProximityArray;
 import utils.Pair;
 
@@ -22,7 +23,7 @@ public class ConvergeAndPush implements Behaviour {
     private static final double IRPushThreshold = 500;
     private static final double orientationDiff = 100;
     public static final int frontLightRealignThreshold = 200;
-    public static final int pushBoxAlignmentThreshold = 3*frontLightRealignThreshold;
+    public static final int pushBoxAlignmentThreshold = 3 * frontLightRealignThreshold;
 
     @Override
     public boolean trigger(SensoryInputs input, ResponseDevices devices) {
@@ -68,12 +69,16 @@ public class ConvergeAndPush implements Behaviour {
         return radians * 180.0 / Math.PI;
     }
 
-    private void pushBox(SensoryInputs input, ResponseDevices devices) {        
+    private void pushBox(SensoryInputs input, ResponseDevices devices) {
         ProximityArray proximity = input.getProximityArray();
+        LightArray light = input.getLightArray();
         double frontalDiff = proximity.getDistanceSensorValue(0) - proximity.getDistanceSensorValue(7);
-        
+
         if (Math.abs(frontalDiff) > pushBoxAlignmentThreshold) {
             alignWithBox(frontalDiff, devices);
+        } else if ((light.getLightSensorValue(0) > 300 && light.getLightSensorValue(7) > 300)) {
+            changeOrientationToBox(input, devices);
+            moveForward(input, devices);
         } else {
             moveForward(input, devices);
         }
@@ -85,12 +90,12 @@ public class ConvergeAndPush implements Behaviour {
 
     private void setSpeedBasedOnAngle(double angle, ResponseDevices devices) {
         double left = 1.0, right = 1.0;
-        double coef = 3.0;
+        double coef = 1.0;
         if (angle > 0) {
-            right -= angle*coef;
+            right -= angle * coef;
             right *= -1;
         } else {
-            left += angle*coef;
+            left += angle * coef;
             left *= -1;
         }
         devices.getWheels().moveWheels(left, right);
